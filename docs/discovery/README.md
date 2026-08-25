@@ -6,15 +6,16 @@ This phase should resist the temptation to design the system too early. Its job 
 
 ## Current status
 
-Discovery is active.
+Discovery is active and has reached the **requirements boundary**.
 
-Three major passes are now represented in the repository:
+Four major passes are now represented in the repository:
 
 1. real-information corpus and initial cross-case analysis;
-2. counterexamples / knowledge-evolution stress testing; and
-3. existing-approach research and composition analysis.
+2. counterexamples / knowledge-evolution stress testing;
+3. existing-approach research and composition analysis; and
+4. evidence-to-capability derivation.
 
-The next major pass is **evidence-to-capability derivation**.
+The next major pass is **formal requirements derivation** from the promoted capability boundary.
 
 ### First evidence pass
 
@@ -66,52 +67,13 @@ Key outputs include:
 - [`existing-approaches/approach-capability-matrix.md`](existing-approaches/approach-capability-matrix.md); and
 - [`existing-approaches/composition-findings.md`](existing-approaches/composition-findings.md).
 
-The strongest result is compositional: existing mechanisms already solve much of the problem well. Project Knowledge is increasingly justified only by the **residual cross-tool project-memory gap** rather than by a need to replace Git, docs, ADRs, issue trackers, provenance standards, temporal models, graphs, or search.
+The strongest result is compositional: existing mechanisms already solve much of the problem well. Project Knowledge is justified by the **residual cross-tool project-memory gap**, not by a need to replace Git, docs, ADRs, issue trackers, provenance standards, temporal models, graphs, or search.
 
-## Discovery tracks
+### Evidence-to-capability pass
 
-### 1. Real information corpus
+The capability derivation track is under [`capabilities/`](capabilities/).
 
-Collect representative project information from actual engineering work. The corpus should include both difficult cases and counterexamples where ordinary repository practices are already sufficient.
-
-Important case types include:
-
-- unresolved questions;
-- competing hypotheses;
-- decisions with alternatives;
-- superseded decisions;
-- requirements and constraints;
-- experiments and evidence;
-- implementation artifacts;
-- failures and corrections;
-- terminology changes;
-- work and milestone context;
-- narrative explanations; and
-- information that legitimately belongs to several views.
-
-The coverage matrix should be used to distinguish observed evidence from attractive but untested concepts.
-
-### 2. User jobs and recovery scenarios
-
-Describe what a person is trying to accomplish when they need project memory. Examples include returning after a long absence, understanding why a component exists, reviewing a changed decision, onboarding, investigating a regression, and reconstructing a milestone.
-
-### 3. Existing approaches
-
-Study how current tools, standards, models, and practices address portions of the problem.
-
-This track's guiding question is:
-
-> What should Project Knowledge reuse, integrate, or extend before inventing anything new?
-
-The initial pass is complete enough to support capability derivation, but research should remain open where later capabilities expose a more specific precedent.
-
-### 4. Failure modes
-
-Record concrete ways project knowledge becomes difficult to use: duplication, drift, stale authority, lost rationale, weak provenance, context fragmentation, hierarchy mismatch, unbounded capture, excessive structure, or retrieval without understanding.
-
-### 5. Evidence-to-capability derivation — next
-
-Candidate capabilities should now be derived using an explicit trace:
+It establishes an explicit evidence chain:
 
 ```text
 Corpus case(s)
@@ -127,18 +89,80 @@ Residual gap
 Candidate capability
 ```
 
-Each candidate should be classified as:
+Key outputs include:
 
-- **REUSE** — an existing mechanism already solves the need;
-- **INTEGRATE** — Project Knowledge needs to connect an existing mechanism into a coherent project-memory view;
-- **EXTEND** — mature semantics exist but require engineering-specific additions; or
-- **NEW** — the evidence supports behavior not adequately supplied by the surveyed mechanisms.
+- [`capabilities/derivation-method.md`](capabilities/derivation-method.md) — admission and anti-overmodeling rules;
+- [`capabilities/candidate-capabilities.md`](capabilities/candidate-capabilities.md) — twenty evidence-derived candidates classified as REUSE, INTEGRATE, EXTEND, or NEW;
+- [`capabilities/trace-matrix.md`](capabilities/trace-matrix.md) — compact case/failure/job/approach traceability;
+- [`capabilities/emerging-capability-shape.md`](capabilities/emerging-capability-shape.md) — four-layer capability shape and candidate semantic-kernel questions; and
+- [`capabilities/promotion-boundary.md`](capabilities/promotion-boundary.md) — requirements-ready, scoped/optional, delegated, and held concepts.
 
-This classification is intended to prevent unnecessary invention.
+The capability pass demonstrates that the twenty candidate capabilities should not become twenty subsystems. They cluster into:
 
-### 6. Requirements derivation
+1. native engineering systems that should remain authoritative for their own data;
+2. cross-artifact integration;
+3. a smaller project-memory semantic layer; and
+4. human recovery views over that shared memory.
 
-Only after candidate capabilities have traceable evidence should they be promoted into functional requirements, quality attributes, constraints, or explicit non-requirements.
+`CAP-018` progressive formalization applies across all four layers.
+
+## Discovery tracks
+
+### 1. Real information corpus
+
+Collect representative project information from actual engineering work. The corpus should include both difficult cases and counterexamples where ordinary repository practices are already sufficient.
+
+Important under-evidenced case types remain:
+
+- competing simultaneous hypotheses;
+- an actual superseded-decision chain;
+- experiment-driven decisions;
+- terminology evolution;
+- narrative/learning projections;
+- capture-overhead failures; and
+- genuine multi-person disagreement.
+
+The coverage matrix should continue to distinguish observed evidence from attractive but untested concepts.
+
+### 2. User jobs and recovery scenarios
+
+The current job catalog (`UJ-001` through `UJ-014`) is sufficient to seed requirements, but should evolve when new corpus cases expose materially new recovery work.
+
+### 3. Existing approaches
+
+The initial broad research pass is complete enough for requirements derivation.
+
+Research remains open when a later requirement raises a narrower precedent question. The guiding rule remains:
+
+> Reuse mature semantics and mechanisms before inventing Project Knowledge-specific equivalents.
+
+### 4. Failure modes
+
+The current failure catalog (`FM-001` through `FM-016`) is sufficient to seed requirements. Later cases should refine/root-cause the catalog rather than simply proliferate surface symptoms.
+
+### 5. Evidence-to-capability derivation
+
+The first pass is complete enough to establish a promotion boundary.
+
+Candidates are classified as:
+
+- **REUSE** — mature existing behavior should remain delegated;
+- **INTEGRATE** — Project Knowledge connects mature behavior into coherent project memory;
+- **EXTEND** — mature semantics form the base but engineering-specific behavior is needed; or
+- **NEW** — the corpus supports genuinely missing Project Knowledge behavior.
+
+### 6. Requirements derivation — next
+
+Formal requirements should now be derived from the promoted capability families in [`capabilities/promotion-boundary.md`](capabilities/promotion-boundary.md):
+
+- **RF-1 — Native interoperability and progressive adoption**
+- **RF-2 — Semantic identity, representation, and relationships**
+- **RF-3 — Authority and current truth**
+- **RF-4 — Provenance, time, and context**
+- **RF-5 — Evidence and epistemic evolution**
+- **RF-6 — Retrieval, impact, and explanation**
+
+Requirements should remain technology-neutral and trace back to the capability registry, user jobs, failure modes, and corpus.
 
 ## Key validation questions
 
@@ -148,9 +172,11 @@ Only after candidate capabilities have traceable evidence should they be promote
 
 > After composing existing mechanisms honestly, what behavior is still missing strongly enough to justify Project Knowledge-specific software?
 
+> Can every mandatory requirement explain which recovery problem justifies its capture and maintenance cost?
+
 ## Discovery outputs
 
-Expected outputs include:
+Current outputs include:
 
 - representative corpus and case studies;
 - corpus coverage and counterexamples;
@@ -158,23 +184,24 @@ Expected outputs include:
 - existing-approach analysis;
 - failure-mode catalog;
 - evidence-to-capability trace matrix;
-- candidate capability model;
-- functional requirements;
-- quality attributes;
-- constraints;
+- candidate capability registry;
+- capability promotion boundary;
 - unresolved questions; and
-- candidate domain concepts for the subsequent domain-modeling phase.
+- candidate domain questions for the subsequent domain-modeling phase.
 
-No implementation architecture is an expected discovery output unless a requirement necessarily constrains it.
+The next outputs are formal functional requirements, quality attributes, constraints, and explicit non-requirements.
+
+No implementation architecture is an expected Discovery output unless a requirement necessarily constrains it.
 
 ## Exit discipline
 
-Discovery should not be considered complete merely because a plausible ontology or architecture has emerged. Before requirements are treated as stable, the project should have:
+Discovery should not be considered globally complete merely because requirements can now begin. Before requirements are treated as stable, the project should continue to ensure that it has:
 
-1. tested findings against cases outside the initial Monad corpus;
-2. investigated existing approaches that may already solve portions of the problem;
-3. connected important user jobs to concrete failure modes and evidence;
+1. tested important findings against cases outside the initial Monad corpus;
+2. credited existing approaches before inventing new mechanisms;
+3. connected mandatory behavior to user jobs, failure modes, and evidence;
 4. distinguished general engineering-knowledge needs from Monad-specific governance conventions;
 5. preserved negative evidence showing where richer structure is unnecessary;
-6. classified proposed behavior as reuse, integration, extension, or genuinely new capability; and
-7. demonstrated that proposed capabilities reduce rather than increase context-management burden.
+6. classified proposed behavior as reuse, integration, extension, or genuinely new capability;
+7. scoped medium-confidence capabilities rather than universalizing them; and
+8. demonstrated that proposed requirements reduce rather than increase context-management burden.
