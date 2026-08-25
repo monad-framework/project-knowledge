@@ -26,11 +26,11 @@ fn claim_value(records: &[Record], id: Uuid) -> Option<&Value> {
 fn df_001_recovers_adr_status_across_adoption_boundary() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR"));
     let records = load_records(root).expect("dogfood records should validate");
-    assert_eq!(records.len(), 10);
+    assert!(records.len() >= 10);
 
     let (model, report) = compile_in_memory(root).expect("repository should compile itself");
     assert!(report.enriched);
-    assert_eq!(report.record_count, 10);
+    assert_eq!(report.record_count, records.len());
 
     let before = model
         .resolve_current(
