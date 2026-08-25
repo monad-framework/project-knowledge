@@ -99,6 +99,42 @@ impl GitAdapter {
             },
         }
     }
+
+    pub fn hash_path(&self, root: &Path, relative: &Path) -> Result<String> {
+        if !root.join(relative).is_file() {
+            return Err(Error::Git(format!(
+                "path does not exist or is not a file: {}",
+                relative.display()
+            )));
+        }
+        let output = Command::new("git")
+            .arg("-C")
+            .arg(root)
+            .arg("hash-object")
+            .arg("--")
+            .arg(relative)
+            .output()
+            .map_err(|error| Error::Git(format!("unable to execute git hash-object: {error}")))?;
+        if !output.status.success() {
+            let stderr = String::from_utf8_lossy(&output.stderr).trim().to_string();
+            return Err(Error::Git(if stderr.is_empty() {
+                format!("git hash-object exited with status {}", output.status)
+            } else {
+                stderr
+            }));
+        }
+        Ok(String::from_utf8_lossy(&output.stdout).trim().to_string())
+    }
+
+    pub fn native_blob_for_path(&self, root: &Path, relative: &Path) -> Result<NativeReference> {
+        let state = self.hash_path(root, relative)?;
+        Ok(NativeReference {
+            source_system: "git".to_string(),
+            object_type: "blob".to_string(),
+            locator: relative.to_string_lossy().replace('\\', "/"),
+            state: Some(state),
+        })
+    }
 }
 
 fn git_output<const N: usize>(root: &Path, args: [&str; N]) -> Result<String> {

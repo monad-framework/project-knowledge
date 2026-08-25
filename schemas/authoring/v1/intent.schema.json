@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-knowledge.dev/schema/authoring/v1/intent.schema.json",
+  "title": "Project Knowledge Authoring Intent v1",
+  "type": "object",
+  "required": ["schema"],
+  "properties": {
+    "schema": { "const": "pk-authoring/v1" },
+    "subject": { "$ref": "#/$defs/subject" },
+    "representations": { "type": "array", "items": { "$ref": "#/$defs/representation" }, "default": [] },
+    "claims": { "type": "array", "items": { "$ref": "#/$defs/claim" }, "default": [] },
+    "contexts": { "type": "array", "items": { "type": "object" }, "default": [] },
+    "activities": { "type": "array", "items": { "type": "object" }, "default": [] },
+    "assertions": { "type": "array", "items": { "type": "object" }, "default": [] },
+    "authorities": { "type": "array", "items": { "type": "object" }, "default": [] },
+    "relationships": { "type": "array", "items": { "type": "object" }, "default": [] },
+    "evidence_evaluations": { "type": "array", "items": { "type": "object" }, "default": [] }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+    },
+    "entity_kind": {
+      "enum": ["subject", "representation", "claim", "assertion", "authority", "relationship", "activity", "context", "evidence_evaluation"]
+    },
+    "existing": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "$ref": "#/$defs/entity_kind" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "label": { "type": "string" },
+        "locator": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "reference": {
+      "oneOf": [
+        { "type": "string", "minLength": 1 },
+        {
+          "type": "object",
+          "required": ["existing"],
+          "properties": { "existing": { "$ref": "#/$defs/existing" } },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "subject": {
+      "type": "object",
+      "required": ["as"],
+      "properties": {
+        "as": { "type": "string", "minLength": 1 },
+        "new": {
+          "type": "object",
+          "properties": { "label": { "type": "string" } },
+          "additionalProperties": false
+        },
+        "existing": { "$ref": "#/$defs/existing" }
+      },
+      "oneOf": [
+        { "required": ["new"], "not": { "required": ["existing"] } },
+        { "required": ["existing"], "not": { "required": ["new"] } }
+      ],
+      "additionalProperties": false
+    },
+    "representation": {
+      "type": "object",
+      "required": ["as", "subject", "path", "role"],
+      "properties": {
+        "as": { "type": "string", "minLength": 1 },
+        "subject": { "$ref": "#/$defs/reference" },
+        "path": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": ["as", "subject", "concern", "value"],
+      "properties": {
+        "as": { "type": "string", "minLength": 1 },
+        "subject": { "$ref": "#/$defs/reference" },
+        "concern": { "type": "string", "minLength": 1 },
+        "value": true
+      },
+      "additionalProperties": false
+    }
+  }
+}
