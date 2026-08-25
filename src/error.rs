@@ -30,6 +30,31 @@ pub enum Error {
 
     #[error("record not found: {0}")]
     NotFound(String),
+
+    #[error("authoring input is incomplete or ambiguous: {0}")]
+    AuthoringInput(String),
+
+    #[error("capture plan is blocked: {0}")]
+    BlockedPlan(String),
+
+    #[error("capture plan is stale: {0}")]
+    StalePlan(String),
+
+    #[error("capture plan conflicts with existing state: {0}")]
+    Conflict(String),
+}
+
+impl Error {
+    pub fn exit_code(&self) -> i32 {
+        match self {
+            Self::Json(_) | Self::AuthoringInput(_) => 3,
+            Self::StalePlan(_) => 4,
+            Self::Schema { .. } | Self::InvalidRecord { .. } | Self::CrossReference(_) => 5,
+            Self::Conflict(_) => 6,
+            Self::BlockedPlan(_) => 3,
+            _ => 1,
+        }
+    }
 }
 
 pub type Result<T> = std::result::Result<T, Error>;
