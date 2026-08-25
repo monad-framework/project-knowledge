@@ -6,15 +6,17 @@ The project begins from a practical problem: large software projects produce mor
 
 ## Status
 
-**Phase 5 — M0 Implementation**
+**Phase 6 — Dogfooding and Real-Project Validation**
 
-The first evidence-traceable requirements baseline, minimal semantic domain kernel, and federated portable-core architecture are merged under [`docs/requirements/`](docs/requirements/), [`docs/domain/`](docs/domain/), and [`docs/architecture/`](docs/architecture/).
+The first evidence-traceable requirements baseline, minimal semantic domain kernel, federated portable-core architecture, and executable M0 vertical slice are complete under [`docs/requirements/`](docs/requirements/), [`docs/domain/`](docs/domain/), [`docs/architecture/`](docs/architecture/), and [`docs/m0/`](docs/m0/).
 
-Current work is the first executable architecture slice under [`docs/m0/`](docs/m0/) and the Rust implementation in `src/`.
+M0 demonstrates the selected architecture against its first executable falsification scenarios. The closure record is [`docs/m0/closure.md`](docs/m0/closure.md).
+
+Current work should now use the executable kernel on Project Knowledge itself and representative Monad material to measure real capture burden, recovery value, missing semantics, and operational friction before authorizing broader capability expansion.
 
 Discovery remains open under [`docs/discovery/`](docs/discovery/) where the evidence matrix still identifies under-evidenced concepts. The completed project foundation remains under [`docs/inception/`](docs/inception/).
 
-## Current implementation direction
+## Current implementation
 
 The selected architecture separates three classes of state:
 
@@ -44,8 +46,21 @@ Current truth remains a derived resolution over Claims, Assertions, scoped autho
 3. Derive requirements from evidence rather than preferred technology. **Initial requirements baseline complete**
 4. Model the domain. **Initial semantic kernel complete**
 5. Design the architecture. **Initial architecture complete**
-6. Build the smallest useful vertical prototype. **Current phase — M0**
-7. Use the project to document its own development and evaluate the model.
+6. Build the smallest useful vertical prototype. **M0 complete**
+7. Use the project to document its own development and evaluate the model. **Current phase — dogfooding**
+
+## Dogfooding objective
+
+The immediate question is no longer whether the architecture can be implemented. It is whether the implemented semantics are worth using in real engineering work.
+
+The next evidence pass should determine:
+
+- which real project facts deserve S2 representation;
+- which relationships and authority rules are worth the capture cost;
+- which metadata can be inferred safely and which requires explicit authorship;
+- whether current-state, historical, freshness, evidence, and identity recovery materially reduce context loss;
+- where the M0 vocabulary is too coarse, too verbose, or incomplete; and
+- which capability should become the first genuine post-M0 product increment.
 
 ## Relationship to Monad
 
