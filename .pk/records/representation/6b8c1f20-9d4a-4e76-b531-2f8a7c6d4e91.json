@@ -1,0 +1,12 @@
+{
+  "schema": "pk/v1",
+  "kind": "representation",
+  "id": "6b8c1f20-9d4a-4e76-b531-2f8a7c6d4e91",
+  "subject_id": "7a4e2d61-1c3b-4f82-a6d5-9e71b2c4d8f0",
+  "role": "open_question_record",
+  "native": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/architecture/open-questions.md"
+  }
+}

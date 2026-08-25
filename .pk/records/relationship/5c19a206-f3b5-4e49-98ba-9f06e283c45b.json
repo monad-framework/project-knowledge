@@ -1,0 +1,15 @@
+{
+  "schema": "pk/v1",
+  "kind": "relationship",
+  "id": "5c19a206-f3b5-4e49-98ba-9f06e283c45b",
+  "from": {
+    "kind": "claim",
+    "id": "f7c45db1-ae60-4f94-8365-4ab19d3e7f06"
+  },
+  "relation": "alternative_considered_in",
+  "to": {
+    "kind": "representation",
+    "id": "a3d57c18-2e64-4b9f-8c21-7f0a5d3e9b62"
+  },
+  "origin": "authored"
+}

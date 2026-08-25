@@ -1,0 +1,15 @@
+{
+  "schema": "pk/v1",
+  "kind": "assertion",
+  "id": "18d56ec2-bf71-4a05-9476-5bc2ae4f8017",
+  "claim_id": "c4f1298e-7a3d-4b61-9e52-1d8c6f0a4b73",
+  "representation_id": "a3d57c18-2e64-4b9f-8c21-7f0a5d3e9b62",
+  "recorded_at": "2026-08-25T15:42:21Z",
+  "valid_from": "2026-08-25T15:42:21Z",
+  "source_state": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/m0/technology-decisions.md",
+    "state": "bac13ef06f293059e6b4d8ae9b79dd90e5b7488d"
+  }
+}
