@@ -6,19 +6,23 @@ The project begins from a practical problem: large software projects produce mor
 
 ## Status
 
-**Phase 1 — Discovery**
+**Phase 2 — Requirements**
 
-The project is currently building and stress-testing an evidence corpus before deriving stable requirements or selecting an implementation architecture.
+The project has completed the first discovery sequence from real corpus evidence through existing-approach research and evidence-derived capability promotion. Formal technology-neutral requirements are now being specified under [`docs/requirements/`](docs/requirements/).
 
-Current work lives under [`docs/discovery/`](docs/discovery/). The completed project foundation remains under [`docs/inception/`](docs/inception/).
+Discovery remains open under [`docs/discovery/`](docs/discovery/) where the evidence matrix still identifies under-evidenced concepts. The completed project foundation remains under [`docs/inception/`](docs/inception/).
+
+No implementation architecture or technology stack has been selected.
 
 ## Working hypothesis
 
-A useful engineering knowledge system may need to preserve more than documents. It may need to represent knowledge objects, their relationships, provenance, temporal evolution, epistemic state, and multiple projections over the same underlying information.
+Project Knowledge is increasingly understood not as a replacement wiki, issue tracker, source-control system, or generic knowledge graph, but as a **low-friction project-memory layer** that can connect heterogeneous engineering artifacts through stable semantic identity, scoped authority, provenance, temporal and epistemic evolution, claim-relative evidence, and explicit relationships.
 
-Discovery has already refined this hypothesis: relationships alone are not sufficient, and any richer model must remain progressive enough that projects can continue using ordinary files, ordering, links, search, and Git when those already solve the relevant recovery problem.
+That shared memory can then support current-state, historical, impact, retrieval, provenance, and narrative views without replacing the native tools that created the information.
 
-These are hypotheses to test, not architectural commitments.
+A second hypothesis has become a hard constraint: richer structure must remain progressive. Projects must be able to continue using ordinary files, ordering, links, search, and Git when those already solve the relevant recovery problem.
+
+These statements remain subject to requirements review, domain modeling, and architecture validation.
 
 ## Core question
 
@@ -26,9 +30,9 @@ These are hypotheses to test, not architectural commitments.
 
 ## Development approach
 
-1. Define the problem and project intent.
-2. Study real engineering information and existing approaches.
-3. Derive requirements from evidence rather than preferred technology.
+1. Define the problem and project intent. **Complete**
+2. Study real engineering information and existing approaches. **Initial discovery complete**
+3. Derive requirements from evidence rather than preferred technology. **Current phase**
 4. Model the domain.
 5. Design the architecture.
 6. Build the smallest useful vertical prototype.
