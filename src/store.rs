@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use rusqlite::{params, Connection};
+use rusqlite::{Connection, params};
 use uuid::Uuid;
 
 use crate::error::Result;
@@ -56,7 +56,11 @@ impl ReadModel {
         Ok(())
     }
 
-    pub fn replace_all(&mut self, records: &[Record], observations: &[SourceObservation]) -> Result<()> {
+    pub fn replace_all(
+        &mut self,
+        records: &[Record],
+        observations: &[SourceObservation],
+    ) -> Result<()> {
         let tx = self.conn.transaction()?;
         tx.execute("DELETE FROM records", [])?;
         tx.execute("DELETE FROM source_observations", [])?;
@@ -65,7 +69,11 @@ impl ReadModel {
         for record in records {
             tx.execute(
                 "INSERT INTO records(id, kind, json) VALUES (?1, ?2, ?3)",
-                params![record.id().to_string(), record.kind_name(), serde_json::to_string(record)?],
+                params![
+                    record.id().to_string(),
+                    record.kind_name(),
+                    serde_json::to_string(record)?
+                ],
             )?;
         }
 
@@ -94,7 +102,9 @@ impl ReadModel {
     }
 
     pub fn all_records(&self) -> Result<Vec<Record>> {
-        let mut statement = self.conn.prepare("SELECT json FROM records ORDER BY kind, id")?;
+        let mut statement = self
+            .conn
+            .prepare("SELECT json FROM records ORDER BY kind, id")?;
         let rows = statement.query_map([], |row| row.get::<_, String>(0))?;
         let mut records = Vec::new();
         for row in rows {
@@ -104,7 +114,9 @@ impl ReadModel {
     }
 
     pub fn record(&self, id: Uuid) -> Result<Option<Record>> {
-        let mut statement = self.conn.prepare("SELECT json FROM records WHERE id = ?1")?;
+        let mut statement = self
+            .conn
+            .prepare("SELECT json FROM records WHERE id = ?1")?;
         let mut rows = statement.query([id.to_string()])?;
         if let Some(row) = rows.next()? {
             let json: String = row.get(0)?;

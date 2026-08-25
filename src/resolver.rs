@@ -67,7 +67,9 @@ impl ReadModel {
                     subject_id: record_subject,
                     concern: record_concern,
                     ..
-                } if *record_subject == subject_id && record_concern == concern => Some((*id, record)),
+                } if *record_subject == subject_id && record_concern == concern => {
+                    Some((*id, record))
+                }
                 _ => None,
             })
             .collect();
@@ -87,7 +89,8 @@ impl ReadModel {
                 } if *record_subject == subject_id
                     && record_concern == concern
                     && context_matches(*authority_context, context_id)
-                    && window_contains(valid_from.as_deref(), valid_until.as_deref(), &at).ok()? =>
+                    && window_contains(valid_from.as_deref(), valid_until.as_deref(), &at)
+                        .ok()? =>
                 {
                     Some((*id, *representation_id))
                 }
@@ -106,8 +109,10 @@ impl ReadModel {
             });
         }
 
-        let authority_representations: BTreeSet<Uuid> =
-            authority.iter().map(|(_, representation)| *representation).collect();
+        let authority_representations: BTreeSet<Uuid> = authority
+            .iter()
+            .map(|(_, representation)| *representation)
+            .collect();
         let mut active_claims = BTreeSet::new();
         for record in &records {
             if let Record::Assertion {
@@ -253,11 +258,9 @@ fn compare_inputs(
             saw_unknown = true;
             continue;
         };
-        let Some(observation) = model.observation(
-            &input.source_system,
-            &input.object_type,
-            &input.locator,
-        )? else {
+        let Some(observation) =
+            model.observation(&input.source_system, &input.object_type, &input.locator)?
+        else {
             saw_unknown = true;
             continue;
         };

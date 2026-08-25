@@ -61,7 +61,10 @@ impl GitAdapter {
         let result = match native.object_type.as_str() {
             "repository" => return self.observe_repository(root),
             "blob" => git_output(root, ["rev-parse", &format!("HEAD:{}", native.locator)]),
-            "commit" => git_output(root, ["rev-parse", &format!("{}^{{commit}}", native.locator)]),
+            "commit" => git_output(
+                root,
+                ["rev-parse", &format!("{}^{{commit}}", native.locator)],
+            ),
             other => {
                 return SourceObservation {
                     source_system: native.source_system.clone(),

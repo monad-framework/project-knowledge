@@ -46,10 +46,7 @@ pub fn load_records(root: &Path) -> Result<Vec<Record>> {
 
 pub fn write_record(root: &Path, record: &Record) -> Result<PathBuf> {
     record.semantic_validate()?;
-    let dir = root
-        .join(".pk")
-        .join("records")
-        .join(record.kind_name());
+    let dir = root.join(".pk").join("records").join(record.kind_name());
     fs::create_dir_all(&dir)?;
     let path = dir.join(format!("{}.json", record.id()));
     let mut text = serde_json::to_string_pretty(record)?;
@@ -204,7 +201,10 @@ fn require_entity(owner: Uuid, kind: EntityKind, target: Uuid, records: &[Record
                     | (EntityKind::Relationship, Record::Relationship { .. })
                     | (EntityKind::Activity, Record::Activity { .. })
                     | (EntityKind::Context, Record::Context { .. })
-                    | (EntityKind::EvidenceEvaluation, Record::EvidenceEvaluation { .. })
+                    | (
+                        EntityKind::EvidenceEvaluation,
+                        Record::EvidenceEvaluation { .. }
+                    )
             )
     });
     if !exists {

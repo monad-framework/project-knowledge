@@ -4,7 +4,7 @@ use std::path::Path;
 use std::process::Command;
 
 use project_knowledge::model::{
-    EvidenceResult, NativeReference, ObservationStatus, Record, RECORD_SCHEMA,
+    EvidenceResult, NativeReference, ObservationStatus, RECORD_SCHEMA, Record,
 };
 use project_knowledge::records::write_record;
 use project_knowledge::{
@@ -56,7 +56,12 @@ fn s2_subject_identity_survives_representation_relocation() {
     let old_rep = Uuid::new_v4();
     write_record(
         repo.path(),
-        &representation(old_rep, Some(subject), "docs/decisions/ADR-0001.md", "decision_record"),
+        &representation(
+            old_rep,
+            Some(subject),
+            "docs/decisions/ADR-0001.md",
+            "decision_record",
+        ),
     )
     .unwrap();
 
@@ -109,7 +114,12 @@ fn s3_scoped_authority_beats_stale_projection_without_using_repetition() {
             id: subject,
             label: Some("work item".into()),
         },
-        representation(canonical_rep, Some(subject), "state.json", "canonical_source"),
+        representation(
+            canonical_rep,
+            Some(subject),
+            "state.json",
+            "canonical_source",
+        ),
         representation(projection_rep, Some(subject), "status.md", "projection"),
         claim(current_claim, subject, "lifecycle.status", "closed"),
         claim(stale_claim, subject, "lifecycle.status", "ready"),
@@ -219,8 +229,14 @@ fn s5_context_preserves_observed_state_distinct_from_current_state() {
     let Record::Context { source_state, .. } = model.record(context_id).unwrap().unwrap() else {
         panic!("expected context");
     };
-    assert_eq!(source_state.unwrap().state.as_deref(), Some(old_head.as_str()));
-    let current = model.observation("git", "repository", ".").unwrap().unwrap();
+    assert_eq!(
+        source_state.unwrap().state.as_deref(),
+        Some(old_head.as_str())
+    );
+    let current = model
+        .observation("git", "repository", ".")
+        .unwrap()
+        .unwrap();
     assert_eq!(current.state.as_deref(), Some(new_head.as_str()));
 }
 
@@ -266,18 +282,27 @@ fn s6_evidence_is_claim_relative_and_ignores_unrelated_change() {
     }
 
     let (model, _) = compile_in_memory(repo.path()).unwrap();
-    assert_eq!(model.evidence_state(evaluation).unwrap(), EvidenceState::Current);
+    assert_eq!(
+        model.evidence_state(evaluation).unwrap(),
+        EvidenceState::Current
+    );
     assert!(model.evidence_for_claim(c2).unwrap().is_empty());
 
     fs::write(repo.path().join("src/unrelated.txt"), "u2\n").unwrap();
     commit_all(repo.path(), "unrelated change");
     let (model, _) = compile_in_memory(repo.path()).unwrap();
-    assert_eq!(model.evidence_state(evaluation).unwrap(), EvidenceState::Current);
+    assert_eq!(
+        model.evidence_state(evaluation).unwrap(),
+        EvidenceState::Current
+    );
 
     fs::write(repo.path().join("src/a.txt"), "a2\n").unwrap();
     commit_all(repo.path(), "relevant change");
     let (model, _) = compile_in_memory(repo.path()).unwrap();
-    assert_eq!(model.evidence_state(evaluation).unwrap(), EvidenceState::Stale);
+    assert_eq!(
+        model.evidence_state(evaluation).unwrap(),
+        EvidenceState::Stale
+    );
 }
 
 #[test]
@@ -350,7 +375,9 @@ fn s8_unknown_is_first_class_when_authority_is_absent() {
     }
 
     let (model, _) = compile_in_memory(repo.path()).unwrap();
-    let resolution = model.resolve_current(subject, "status", None, None).unwrap();
+    let resolution = model
+        .resolve_current(subject, "status", None, None)
+        .unwrap();
     assert_eq!(resolution.outcome, ResolutionOutcome::Unknown);
 }
 
@@ -391,7 +418,10 @@ fn clean_room_rebuild_preserves_semantic_results() {
 
     assert_eq!(before.outcome, after.outcome);
     assert_eq!(before.claim_ids, after.claim_ids);
-    assert_eq!(before.authority_assignment_ids, after.authority_assignment_ids);
+    assert_eq!(
+        before.authority_assignment_ids,
+        after.authority_assignment_ids
+    );
 }
 
 fn git_repo() -> TempDir {

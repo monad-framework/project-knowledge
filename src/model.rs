@@ -349,14 +349,18 @@ fn validate_native(id: Uuid, native: &NativeReference) -> Result<()> {
 }
 
 fn parse_timestamp(id: Uuid, field: &str, value: &str) -> Result<Timestamp> {
-    value.parse::<Timestamp>().map_err(|error| Error::InvalidRecord {
-        id: id.to_string(),
-        message: format!("{field} is not a valid RFC3339 timestamp: {error}"),
-    })
+    value
+        .parse::<Timestamp>()
+        .map_err(|error| Error::InvalidRecord {
+            id: id.to_string(),
+            message: format!("{field} is not a valid RFC3339 timestamp: {error}"),
+        })
 }
 
 fn validate_window(id: Uuid, from: Option<&str>, until: Option<&str>) -> Result<()> {
-    let from = from.map(|value| parse_timestamp(id, "valid_from", value)).transpose()?;
+    let from = from
+        .map(|value| parse_timestamp(id, "valid_from", value))
+        .transpose()?;
     let until = until
         .map(|value| parse_timestamp(id, "valid_until", value))
         .transpose()?;
