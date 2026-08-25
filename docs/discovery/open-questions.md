@@ -1,6 +1,6 @@
 # Discovery Open Questions
 
-These questions are intentionally unresolved. They should guide additional corpus collection, research, and requirements derivation.
+These questions are intentionally unresolved. They should guide additional corpus collection, research, capability derivation, and requirements work.
 
 ## Identity
 
@@ -10,13 +10,17 @@ These questions are intentionally unresolved. They should guide additional corpu
 
 `PKC-0010` strengthens the rename/move portion of question 3: semantic identity can survive relocation when the source domain supplies a stable identifier. It does not answer how identity should work for artifacts that lack one.
 
+Existing-approach research adds an important constraint: native tool identities should generally be preserved. Project Knowledge semantic identity, if required, should coordinate across Git objects, paths, issue IDs, URLs, execution IDs, and other native identifiers rather than replacing them.
+
 ## Time
 
 4. Which engineering statements need explicit valid-time semantics rather than relying on Git history?
 5. How should current truth and historical truth be presented together without ambiguity?
-6. Do we need to distinguish when something was true from when the system learned or recorded that it was true?
+6. Which project assertions need the distinction between when something was valid/effective and when the project learned or recorded it?
 
 `PKC-0008` adds a low-complexity example of question 5: an old phase statement remains historically true while becoming invalid as a present-tense summary.
+
+Existing temporal and bitemporal systems demonstrate that valid/effective time and system/recorded time are mature, distinct concepts. The remaining question is no longer whether the distinction exists; it is **where the distinction creates enough engineering value to justify explicit modeling**.
 
 ## Authority
 
@@ -24,71 +28,92 @@ These questions are intentionally unresolved. They should guide additional corpu
 8. How should conflicting authoritative claims be represented when disagreement is genuine rather than stale projection?
 9. Can authority be derived from project policy, or must it be recorded with each relevant relationship?
 
+Existing tools reinforce rather than solve this problem: Git, ADRs, issue trackers, standards, and generated artifacts can each be locally authoritative for different concerns. No surveyed mechanism supplies a project-wide scoped-authority model by itself.
+
 ## Provenance and evidence
 
-10. Which provenance concepts must remain distinct: producer, derivation source, requested origin, resolved origin, observed state, recorded claim, execution location, or others?
+10. Which engineering provenance concepts map directly to W3C PROV, and which require engineering-specific extension?
 11. What exactly should an evidence record say it supports?
 12. How should evidence validity respond to changes that are relevant to one claim but irrelevant to another?
 13. How should later corrections to inaccurate provenance preserve both the original record and the corrected understanding?
+14. Should evidence-support relationships be modeled separately from ordinary derivation/provenance relationships?
+
+The existing-approaches pass substantially narrows question 10. W3C PROV already distinguishes Entity, Activity, Agent, generation, usage, derivation, attribution, revision, primary source, alternate representation, specialization, and qualified relationships. Project Knowledge should test those concepts before inventing generic provenance primitives.
+
+The EOSV corpus still exposes a residual gap around **claim-relative evidence**: provenance can explain where evidence came from without necessarily defining the proposition it validates or which later changes invalidate that support.
 
 ## Context
 
-14. Which contexts materially affect interpretation: repository, checkout, branch, commit, worktree, execution, host, tool version, environment, lifecycle state?
-15. Which context should be captured automatically, and which should require explicit human declaration?
-16. What historical execution context must remain reconstructable after temporary worktrees and environments disappear?
+15. Which contexts materially affect interpretation: repository, checkout, branch, commit, worktree, execution, host, tool version, environment, lifecycle state?
+16. Which context should be captured automatically, and which should require explicit human declaration?
+17. What historical execution context must remain reconstructable after temporary worktrees and environments disappear?
+18. Which contextual locators should be preserved as historical facts even when they are unsuitable as durable reconstruction identities?
+
+Git's distinction between immutable objects and contextual/mutable refs strengthens the need to separate exact source-state identity from locators such as `HEAD`, branch names, relative paths, and worktree paths.
 
 ## Classification and capture
 
-17. How does the system distinguish canonical source, derived representation, coordination projection, transient control artifact, external source, and incidental environment state?
-18. How much classification can be inferred safely before automation becomes a source of false structure?
-19. What is the minimum-friction capture path for an unstructured observation or question?
-20. How can the model become richer over time without forcing users to fully classify information at capture time?
-21. When should the system deliberately decline to capture or enrich information because the expected retrieval value is too low?
+19. How does the system distinguish canonical source, derived representation, coordination projection, transient control artifact, external source, and incidental environment state?
+20. How much classification can be inferred safely before automation becomes a source of false structure?
+21. What is the minimum-friction capture path for an unstructured observation or question?
+22. How can the model become richer over time without forcing users to fully classify information at capture time?
+23. When should the system deliberately decline to capture or enrich information because the expected retrieval value is too low?
 
-`PKC-0011` makes questions 20 and 21 central. Progressive formalization is no longer only a convenience hypothesis; it is necessary counterpressure against over-modeling.
+`PKC-0011` makes questions 22 and 23 central. Existing linked-note systems and W3C PROV's layered vocabulary reinforce progressive formalization as a serious design constraint rather than merely a UI convenience.
 
 ## Epistemic evolution
 
-22. Which knowledge-state transitions need explicit semantics beyond generic version history?
-23. How should refinement, narrowing, strengthening, weakening, rejection, and supersession differ?
-24. How should simultaneous competing hypotheses be represented before evidence resolves them?
-25. When does a hypothesis become a decision, requirement, invariant, or accepted project fact?
+24. Which knowledge-state transitions need explicit semantics beyond generic version history?
+25. How should refinement, narrowing, strengthening, weakening, rejection, correction, deprecation, and supersession differ?
+26. How should simultaneous competing hypotheses be represented before evidence resolves them?
+27. When does a hypothesis become a decision, requirement, invariant, or accepted project fact?
+28. Are there mature epistemic/evidence models worth reusing before defining engineering-specific state semantics?
 
-`PKC-0009` demonstrates refinement without wholesale replacement but does not yet answer questions 24 or 25.
+`PKC-0009` demonstrates refinement without wholesale replacement but does not yet answer questions 26 or 27.
+
+The existing-approaches pass leaves epistemic evolution as one of the strongest potentially Project Knowledge-specific gaps and identifies question 28 as a targeted research need if capability derivation requires it.
 
 ## Relationships and causality
 
-26. Which relationships deserve explicit structure rather than remaining ordinary links or prose?
-27. How should causal statements differ from dependency, chronology, correlation, or rationale?
-28. How can the system avoid creating a dense graph that is technically complete but cognitively unusable?
+29. Which relationships deserve explicit structure rather than remaining ordinary links or prose?
+30. How should causal statements differ from dependency, chronology, correlation, rationale, provenance, or influence?
+31. How can the system avoid creating a dense graph that is technically complete but cognitively unusable?
+32. Which relationship semantics can be reused from PROV, ADR practices, issue dependencies, and other mature models?
+
+Existing approaches strongly suggest reusing established relation semantics where they fit instead of creating a universal Project Knowledge relationship vocabulary from scratch.
 
 ## Projections and views
 
-29. What makes a projection trustworthy: lineage, generation time, source identity, synchronization status, deterministic regeneration, or some combination?
-30. Which views should be generated and which should remain deliberately authored narratives?
-31. How should the system present stale projections that are still valuable historical evidence?
-32. How fine-grained should freshness be: artifact, section, assertion, field, dependency, or another unit?
+33. What makes a projection trustworthy: lineage, generation time, source identity, synchronization status, deterministic regeneration, or some combination?
+34. Which views should be generated and which should remain deliberately authored narratives?
+35. How should the system present stale projections that are still valuable historical evidence?
+36. How fine-grained should freshness be: artifact, section, assertion, field, dependency, or another unit?
+37. How should search indexes, chunks, embeddings, and generated summaries identify their canonical source and extraction context?
 
-`PKC-0008` suggests that whole-document freshness can be too coarse.
+`PKC-0008` suggests that whole-document freshness can be too coarse. Search/RAG research adds another projection family whose chunk/index identity must not be confused with semantic project identity.
 
 ## Scope and generality
 
-33. Which findings are properties of engineering knowledge generally, and which are artifacts of Monad's unusually governed process?
-34. What cases from simpler projects, team projects, incident response, exploratory prototyping, and non-software technical work would falsify or refine the emerging model?
-35. What can existing tools already solve well enough that Project Knowledge should integrate rather than reimplement?
+38. Which findings are properties of engineering knowledge generally, and which are artifacts of Monad's unusually governed process?
+39. What cases from simpler projects, team projects, incident response, exploratory prototyping, and non-software technical work would falsify or refine the emerging model?
+40. Which needs should Project Knowledge solve by reuse, integration, extension, or new behavior?
+41. At what point would a composition of existing tools be sufficient enough that Project Knowledge should remain only a convention/integration layer rather than a distinct application?
 
 `PKC-0011` supplies one simpler-project counterexample, but one project is not enough to generalize from.
 
+Question 40 replaces the broader earlier question “what can existing tools solve?” The initial existing-approaches pass now gives enough evidence to classify candidate capabilities explicitly as **REUSE**, **INTEGRATE**, **EXTEND**, or **NEW**.
+
 ## Cognitive burden
 
-36. What amount of structure actually reduces human context-recovery cost?
-37. When does additional metadata cost more to author and maintain than it returns in retrieval value?
-38. Can the system support progressive formalization: capture first, enrich only when value becomes clear?
-39. How should a project select a retention depth appropriate to its scale, risk, collaboration model, and learning goals?
+42. What amount of structure actually reduces human context-recovery cost?
+43. When does additional metadata cost more to author and maintain than it returns in retrieval value?
+44. Can the system support progressive formalization: capture first, enrich only when value becomes clear?
+45. How should a project select a retention depth appropriate to its scale, risk, collaboration model, and learning goals?
+46. Which enrichment can be suggested or derived automatically while still requiring human confirmation before semantic assertions become authoritative?
 
 ## Next evidence needed
 
-The next corpus expansion should deliberately seek:
+The corpus should still deliberately seek:
 
 - a decision that was explicitly superseded by another decision;
 - an unresolved question with competing hypotheses;
@@ -100,6 +125,24 @@ The next corpus expansion should deliberately seek:
 - a case where excessive capture or metadata became a burden; and
 - a multi-person collaboration case with genuine disagreement or concurrent knowledge creation.
 
-## Next research needed
+## Next discovery work
 
-The next major discovery track should investigate existing approaches against the observed jobs and failure modes rather than as a generic tool survey. In particular, research should ask which parts of the problem are already handled well by Git, ADR practice, issue trackers, wikis/documentation systems, PKM/backlink systems, event sourcing, temporal databases, provenance models, knowledge graphs, search/RAG systems, and documentation-as-code practices.
+The broad existing-approaches survey is now complete enough for capability derivation.
+
+The next pass should trace each candidate capability through:
+
+```text
+Corpus case(s)
+    ↓
+Failure mode(s)
+    ↓
+User job(s)
+    ↓
+Existing approach coverage
+    ↓
+Residual gap
+    ↓
+Candidate capability
+```
+
+Targeted additional research should be triggered by specific residual gaps rather than another broad tool survey. Likely candidates include epistemic-state/evidence models and collaboration/disagreement semantics if those survive capability derivation.
