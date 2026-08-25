@@ -2,15 +2,17 @@
 
 This directory defines the first technology-neutral domain model for Project Knowledge.
 
-The domain model is derived from the formal requirements under `docs/requirements/`. It exists to settle the minimum semantic concepts, boundaries, cardinalities, and invariants needed before architecture begins.
+The domain model is derived from the formal requirements under `docs/requirements/`. It settles the minimum semantic concepts, boundaries, cardinalities, and invariants that architecture must preserve.
 
 ## Status
 
-**Phase 3 — Domain Modeling**
+**Initial domain baseline complete — Architecture is the active phase.**
 
-This is a candidate semantic kernel, not a storage schema or implementation model.
+The semantic kernel was validated against the current corpus (`PKC-0001` through `PKC-0011`) without requiring another kernel primitive. Architecture work now lives under [`docs/architecture/`](../architecture/).
 
-The domain model MUST remain compatible with the requirements constraints:
+The domain model remains normative for meaning and invariants. It is not a storage schema or implementation model.
+
+The model MUST remain compatible with the requirements constraints:
 
 - native systems remain legitimate sources of truth;
 - semantic enrichment is progressive rather than universal;
@@ -24,7 +26,7 @@ The domain model MUST remain compatible with the requirements constraints:
 
 > What is the smallest set of semantic concepts Project Knowledge must understand in order to connect heterogeneous engineering artifacts, recover current and historical truth, explain provenance and evidence, and support impact/recovery views without replacing native tools?
 
-## Candidate kernel
+## Kernel
 
 The current model contains these primary concepts:
 
@@ -53,25 +55,29 @@ The model intentionally does **not** define separate domain types for every engi
 - [`provenance-time-context-evidence.md`](provenance-time-context-evidence.md) — Activity/provenance, temporal semantics, Context, and Evidence Evaluation
 - [`relationships-projections-and-recovery.md`](relationships-projections-and-recovery.md) — relationship semantics, derivation, freshness, projections, and explanatory paths
 - [`progressive-formalization.md`](progressive-formalization.md) — enrichment levels and selective-retention rules
-- [`invariants.md`](invariants.md) — normative domain invariants
+- [`invariants.md`](invariants.md) — 32 normative domain invariants
 - [`requirements-traceability.md`](requirements-traceability.md) — requirements-to-domain mapping
+- [`corpus-validation.md`](corpus-validation.md) — validation against current discovery cases
 - [`open-questions.md`](open-questions.md) — questions deliberately deferred to architecture or additional evidence
 
-## Domain-modeling boundary
+## Handoff to architecture
 
-This phase decides **meaning** before deciding **representation**.
+Architecture may choose representation and implementation mechanisms only if they preserve the domain invariants.
 
-It does not select:
+In particular, architecture must preserve the distinctions between:
 
-- JSON/YAML/RDF/SQL schemas;
-- UUID/ULID/URI identifier formats;
-- relational, document, graph, or event storage;
-- a provenance serialization;
-- temporal database infrastructure;
-- indexing/search technology;
-- API shapes;
-- service boundaries;
-- implementation language; or
-- user interface.
+```text
+native identity != semantic identity
+Representation role != authority
+Claim != Assertion
+Assertion != truth
+valid time != recorded time
+Context locator != reconstruction identity
+Evidence input != Evidence Evaluation
+retrieval relevance != authority
+chronology != causality
+```
 
-Those are architecture decisions constrained by this model and the requirements.
+Architecture is free to choose relational, document, graph, hybrid, embedded, or service-backed mechanisms as long as those semantics remain intact.
+
+The current architecture work selects a federated portable-core shape while keeping concrete implementation technologies deferred to the M0 detailed-design/bootstrap pass.
