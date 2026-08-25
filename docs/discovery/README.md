@@ -1,0 +1,64 @@
+# Discovery
+
+Discovery turns the inception problem statement into evidence-backed requirements.
+
+This phase should resist the temptation to design the system too early. Its job is to understand the information we need to preserve, the workflows in which that information appears, the failure modes of current practices, and the minimum capabilities required to improve them.
+
+## Planned discovery tracks
+
+### 1. Real information corpus
+
+Collect representative project information from actual engineering work. The initial corpus should include material from Project Knowledge itself and selected Monad development history.
+
+The corpus should contain difficult cases, not only clean examples:
+
+- unresolved questions;
+- competing hypotheses;
+- decisions with alternatives;
+- superseded decisions;
+- requirements and constraints;
+- experiments and evidence;
+- implementation artifacts;
+- failures and corrections;
+- terminology changes;
+- work and milestone context;
+- narrative explanations; and
+- information that legitimately belongs to several views.
+
+### 2. User jobs and recovery scenarios
+
+Describe what a person is trying to accomplish when they need project memory. Examples include returning after a long absence, understanding why a component exists, reviewing a changed decision, onboarding, investigating a regression, and reconstructing a milestone.
+
+### 3. Existing approaches
+
+Study how current tools and practices address portions of the problem: source control, issue trackers, wikis, ADRs, architecture documentation, notebooks, PKM systems, search, graph systems, provenance systems, temporal models, and related approaches.
+
+The goal is not to prove that existing tools are inadequate. The goal is to identify what already works, what can be composed, and where gaps actually remain.
+
+### 4. Failure modes
+
+Record concrete ways project knowledge becomes difficult to use: duplication, drift, stale authority, lost rationale, weak provenance, context fragmentation, hierarchy mismatch, unbounded capture, excessive structure, or retrieval without understanding.
+
+### 5. Requirements derivation
+
+Derive functional and quality requirements from the corpus, user jobs, and observed failure modes. Requirements should be traceable back to evidence wherever practical.
+
+## Key validation question
+
+> Can the emerging model represent the messy reality of engineering work without forcing information into unnatural categories or imposing more cognitive burden than it removes?
+
+## Discovery outputs
+
+Expected outputs include:
+
+- representative corpus and case studies;
+- user jobs and use cases;
+- existing-approach analysis;
+- failure-mode catalog;
+- capability requirements;
+- quality attributes;
+- constraints;
+- unresolved questions; and
+- candidate domain concepts for the subsequent domain-modeling phase.
+
+No implementation architecture is an expected discovery output unless a requirement necessarily constrains it.
