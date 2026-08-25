@@ -75,15 +75,19 @@ The selected JSON Claim has a claim-relative Evidence Evaluation using the curre
 
 The evaluation confirms that JSON was selected and that the repository implements the portable contract as JSON Schema. It does not prove that JSON must remain the permanent authoring syntax; the technology decision itself explicitly leaves room for future YAML or richer authoring layers that compile into the same logical S2 model.
 
-## Executable checks
+## Executable result — PASS
 
-`tests/dogfood_serialization_choice.rs` verifies:
+`tests/dogfood_serialization_choice.rs` verifies on the normal clean CI runner that:
 
 - the pre-selection query returns `unknown`;
 - the post-selection query resolves JSON;
 - YAML, TOML, and custom remain recoverable as alternatives rather than competing authoritative truths;
 - the selection Activity links the open question to the decision Representation; and
 - the implementation evidence remains current.
+
+The final DF-002 branch also passes formatting, strict Clippy, the full locked test suite, all M0 acceptance scenarios, and DF-001.
+
+No production schema, compiler, resolver, source-adapter, or CLI change was required for DF-002.
 
 ## Findings
 
@@ -97,7 +101,7 @@ That does **not** mean questions are never first-class knowledge objects. It onl
 
 Representing candidates as unasserted Claims plus typed Relationships is semantically safe but somewhat indirect. This is the first self-dogfood signal that the M0 executable vocabulary may be thinner around epistemic process than around authority/current truth.
 
-One case is insufficient to add an epistemic record kind.
+One case is insufficient to add an epistemic record kind. The epistemic-vocabulary question remains open pending more real cases.
 
 ### Dogfood tests must compose as project memory grows
 
@@ -117,13 +121,18 @@ The repeated friction is not that these semantics are meaningless; most encode d
 
 ## Product implication status
 
-DF-002 provides the second independent self-dogfood signal supporting **low-friction authored capture/scaffolding** as a real post-M0 capability candidate.
+DF-002 is the second independent self-dogfood signal supporting **low-friction authored capture/scaffolding**. Because the signal recurred across two materially different recovery shapes while the underlying M0 semantics remained sufficient, that capability is now **promoted to detailed design as the first evidence-authorized post-M0 increment**.
 
-If the final DF-002 semantic run passes, this is strong enough to promote that capability into detailed design after DF-002 merges, while preserving a strict boundary:
+The design boundary is strict:
 
-- tooling may generate deterministic structure;
-- tooling may inspect native source state;
-- tooling may validate and suggest;
-- tooling must not silently decide authority, semantic equivalence, evidence breadth, or epistemic meaning.
+- tooling may generate UUIDs and record placement;
+- tooling may capture timestamps and current native source-state identity;
+- tooling may help select existing Subjects and Representations;
+- tooling may validate cross-references and schema structure;
+- tooling may present or suggest semantic choices;
+- tooling must not silently decide authority scope;
+- tooling must not silently merge semantic identities;
+- tooling must not widen the proposition supported by evidence; and
+- tooling must not silently assign epistemic meaning to alternatives or hypotheses.
 
-The epistemic-vocabulary question remains open pending more cases.
+The next phase should design this authoring/capture layer before implementing it. DF-002 does not itself add a new command surface or schema vocabulary.
