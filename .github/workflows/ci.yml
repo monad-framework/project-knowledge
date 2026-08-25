@@ -8,7 +8,7 @@ on:
       - "m0/**"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   test:
@@ -19,12 +19,17 @@ jobs:
         run: rustc --version && cargo --version && git --version
       - name: Format working tree
         run: cargo fmt
-      - name: Capture rustfmt patch
-        run: git diff -- src tests > rustfmt.patch
-      - uses: actions/upload-artifact@v4
-        with:
-          name: rustfmt-patch
-          path: rustfmt.patch
+      - name: Commit rustfmt output
+        if: github.event_name == 'push' && github.ref == 'refs/heads/m0/executable-kernel'
+        run: |
+          if git diff --quiet -- src tests; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src tests
+          git commit -m "style: apply rustfmt"
+          git push
       - name: Clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
       - name: Test
