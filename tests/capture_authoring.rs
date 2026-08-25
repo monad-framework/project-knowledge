@@ -22,7 +22,11 @@ fn ca_a01_and_a18_df001_equivalence_without_structural_boilerplate() {
     let repo = git_repo();
     write_native(repo.path(), "adr.md", "status: proposed\n");
     write_native(repo.path(), "selected.md", "architecture accepted\n");
-    write_native(repo.path(), "closure.md", "M0 did not falsify architecture\n");
+    write_native(
+        repo.path(),
+        "closure.md",
+        "M0 did not falsify architecture\n",
+    );
     commit_all(repo.path(), "native architecture state");
 
     let intent = parse_intent(
@@ -75,10 +79,16 @@ fn ca_a01_and_a18_df001_equivalence_without_structural_boilerplate() {
         .resolve_current(subject, "decision_status", Some(T2), None)
         .unwrap();
     assert_eq!(before.outcome, ResolutionOutcome::Resolved);
-    assert_eq!(claim_value(repo.path(), before.claim_ids[0]), json!("proposed"));
+    assert_eq!(
+        claim_value(repo.path(), before.claim_ids[0]),
+        json!("proposed")
+    );
     assert_eq!(after.outcome, ResolutionOutcome::Resolved);
     assert_eq!(after.claim_ids, vec![accepted]);
-    assert_eq!(model.evidence_state(evidence).unwrap(), EvidenceState::Current);
+    assert_eq!(
+        model.evidence_state(evidence).unwrap(),
+        EvidenceState::Current
+    );
     assert_eq!(
         fs::read_to_string(repo.path().join("selected.md")).unwrap(),
         before_native
@@ -89,7 +99,11 @@ fn ca_a01_and_a18_df001_equivalence_without_structural_boilerplate() {
 fn ca_a02_df002_equivalence_preserves_unknown_alternatives_provenance_and_evidence_scope() {
     let repo = git_repo();
     write_native(repo.path(), "open.md", "Which serialization?\n");
-    write_native(repo.path(), "decision.md", "Select JSON over YAML, TOML, custom.\n");
+    write_native(
+        repo.path(),
+        "decision.md",
+        "Select JSON over YAML, TOML, custom.\n",
+    );
     write_native(repo.path(), "schema.json", "{}\n");
     commit_all(repo.path(), "serialization artifacts");
 
@@ -146,7 +160,10 @@ fn ca_a02_df002_equivalence_preserves_unknown_alternatives_provenance_and_eviden
     assert_eq!(before.outcome, ResolutionOutcome::Unknown);
     assert_eq!(after.outcome, ResolutionOutcome::Resolved);
     assert_eq!(after.claim_ids, vec![json_claim]);
-    assert_eq!(model.evidence_state(evidence).unwrap(), EvidenceState::Current);
+    assert_eq!(
+        model.evidence_state(evidence).unwrap(),
+        EvidenceState::Current
+    );
 
     let records = load_records(repo.path()).unwrap();
     assert_eq!(
@@ -430,8 +447,12 @@ fn ca_a16_capture_bundles_compose_without_fixed_global_size() {
     apply_capture_plan(repo.path(), &second).unwrap();
     let records = load_records(repo.path()).unwrap();
     assert_eq!(records.len(), 2);
-    assert!(records.iter().any(|record| matches!(record, Record::Subject { label: Some(label), .. } if label == "first")));
-    assert!(records.iter().any(|record| matches!(record, Record::Subject { label: Some(label), .. } if label == "second")));
+    assert!(records.iter().any(
+        |record| matches!(record, Record::Subject { label: Some(label), .. } if label == "first")
+    ));
+    assert!(records.iter().any(
+        |record| matches!(record, Record::Subject { label: Some(label), .. } if label == "second")
+    ));
 }
 
 fn subject_only_plan(root: &Path, label: &str) -> project_knowledge::CapturePlan {
@@ -508,7 +529,9 @@ fn claim_value(root: &Path, id: Uuid) -> serde_json::Value {
         .into_iter()
         .find_map(|record| match record {
             Record::Claim {
-                id: claim_id, value, ..
+                id: claim_id,
+                value,
+                ..
             } if claim_id == id => Some(value),
             _ => None,
         })
