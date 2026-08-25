@@ -12,7 +12,14 @@ The first evidence-traceable requirements baseline, minimal semantic domain kern
 
 M0 demonstrates the selected architecture against its first executable falsification scenarios. The closure record is [`docs/m0/closure.md`](docs/m0/closure.md).
 
-Current work should now use the executable kernel on Project Knowledge itself and representative Monad material to measure real capture burden, recovery value, missing semantics, and operational friction before authorizing broader capability expansion.
+Two self-dogfood experiments are now complete under [`docs/dogfooding/`](docs/dogfooding/):
+
+- DF-001 recovered historical/current ADR status and evidence;
+- DF-002 preserved an unresolved technology question, considered alternatives, the later selected answer, and implementation evidence.
+
+Both passed using the existing M0 semantic kernel. Across the two cases, the repository accumulated 24 portable S2 records and independently reproduced the same manual structural-authoring burden.
+
+That repeated evidence promotes **low-friction authored capture/scaffolding** as the first post-M0 capability eligible for detailed design. The active design is under [`docs/authoring/`](docs/authoring/). It adopts a plan → review → apply boundary so `pk` can generate mechanical structure without silently deciding semantic identity, authority, evidence breadth, valid time, or epistemic meaning.
 
 Discovery remains open under [`docs/discovery/`](docs/discovery/) where the evidence matrix still identifies under-evidenced concepts. The completed project foundation remains under [`docs/inception/`](docs/inception/).
 
@@ -47,20 +54,20 @@ Current truth remains a derived resolution over Claims, Assertions, scoped autho
 4. Model the domain. **Initial semantic kernel complete**
 5. Design the architecture. **Initial architecture complete**
 6. Build the smallest useful vertical prototype. **M0 complete**
-7. Use the project to document its own development and evaluate the model. **Current phase — dogfooding**
+7. Use the project to document its own development and evaluate the model. **Current phase — dogfooding + evidence-authorized authoring design**
 
-## Dogfooding objective
+## Current Phase 6 objective
 
-The immediate question is no longer whether the architecture can be implemented. It is whether the implemented semantics are worth using in real engineering work.
+The immediate question is whether the implemented semantics are worth using in real engineering work and which friction should be removed without weakening them.
 
-The next evidence pass should determine:
+DF-001 and DF-002 establish two findings:
 
-- which real project facts deserve S2 representation;
-- which relationships and authority rules are worth the capture cost;
-- which metadata can be inferred safely and which requires explicit authorship;
-- whether current-state, historical, freshness, evidence, and identity recovery materially reduce context loss;
-- where the M0 vocabulary is too coarse, too verbose, or incomplete; and
-- which capability should become the first genuine post-M0 product increment.
+1. the current semantic kernel handled both tested real recovery shapes without expansion; and
+2. hand-authoring deterministic structural boilerplate is a repeated adoption burden.
+
+The next authorized increment is therefore not a broader semantic model. It is a capture/authoring layer that lets the human declare meaning while tooling generates safe mechanical structure.
+
+After that authoring increment is implemented, the next real dogfood experiment should use the new workflow and determine what remaining friction or semantic gap appears in practice.
 
 ## Relationship to Monad
 
