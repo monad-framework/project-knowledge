@@ -6,17 +6,19 @@ The project begins from a practical problem: large software projects produce mor
 
 ## Status
 
-**Phase 0 — Inception**
+**Phase 1 — Discovery**
 
-This repository is intentionally specification-first. We are defining the problem before selecting an implementation architecture or technology stack.
+The project is currently building and stress-testing an evidence corpus before deriving stable requirements or selecting an implementation architecture.
 
-Current work lives under [`docs/inception/`](docs/inception/).
+Current work lives under [`docs/discovery/`](docs/discovery/). The completed project foundation remains under [`docs/inception/`](docs/inception/).
 
 ## Working hypothesis
 
 A useful engineering knowledge system may need to preserve more than documents. It may need to represent knowledge objects, their relationships, provenance, temporal evolution, epistemic state, and multiple projections over the same underlying information.
 
-That is a hypothesis to test, not an architectural commitment.
+Discovery has already refined this hypothesis: relationships alone are not sufficient, and any richer model must remain progressive enough that projects can continue using ordinary files, ordering, links, search, and Git when those already solve the relevant recovery problem.
+
+These are hypotheses to test, not architectural commitments.
 
 ## Core question
 
