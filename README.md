@@ -6,35 +6,29 @@ The project begins from a practical problem: large software projects produce mor
 
 ## Status
 
-**Phase 3 — Domain Modeling**
+**Phase 4 — Architecture**
 
-The first formal, evidence-traceable requirements baseline has been merged under [`docs/requirements/`](docs/requirements/). Current work is deriving the minimum technology-neutral semantic kernel under [`docs/domain/`](docs/domain/).
+The first evidence-traceable requirements baseline is merged under [`docs/requirements/`](docs/requirements/), and the first minimal semantic domain kernel is merged under [`docs/domain/`](docs/domain/).
+
+Current work is defining the technology-neutral system architecture under [`docs/architecture/`](docs/architecture/).
 
 Discovery remains open under [`docs/discovery/`](docs/discovery/) where the evidence matrix still identifies under-evidenced concepts. The completed project foundation remains under [`docs/inception/`](docs/inception/).
 
-No implementation architecture or technology stack has been selected.
+No implementation language, database engine, graph technology, search product, UI framework, or deployment platform has been selected.
 
-## Current domain hypothesis
+## Current architecture direction
 
-The requirements can be satisfied by a relatively small cross-tool semantic kernel rather than a universal ontology of every engineering artifact.
+The domain model supports a relatively small cross-tool semantic kernel rather than a universal ontology of every engineering artifact.
 
-The candidate kernel centers on:
+Architecture now separates three classes of state:
 
-- native Source Systems and inspectable Native References;
-- optional stable Subjects where cross-representation continuity matters;
-- concrete Representations and their roles/lineage;
-- Claims separated from source-bound Assertions;
-- scoped Authority Assignments;
-- typed Relationships only where semantics justify them;
-- provenance Activities and Agents compatible with mature provenance concepts;
-- conditional valid/recorded time and material Context;
-- claim-relative Evidence Evaluations;
-- optional epistemic annotations; and
-- recovery Projections over the shared model.
+1. **Native authoritative state** — files, Git, issues, ADRs, CI evidence, external sources, and other native systems remain authoritative within their declared scopes.
+2. **Portable Project Knowledge semantic state** — only cross-system semantics that Project Knowledge itself owns are persisted canonically, such as Subject continuity, Representation bindings, scoped authority, selected Claims/Assertions, Relationships, provenance/context/evidence records, and project policy.
+3. **Derived/query-optimized state** — indexes, relationship adjacency, current-state caches, freshness diagnostics, retrieval indexes, and generated projections are rebuildable conveniences rather than independent sources of truth.
 
-Current truth, historical truth, contradiction diagnostics, freshness, impact, and recovery paths are treated as **derived views**, not independent truth stores.
+The selected architectural shape is a **federated portable core with disposable derived read models**.
 
-A hard constraint remains: richer structure must be progressive. Projects must be able to continue using ordinary files, ordering, links, search, and Git when those already solve the relevant recovery problem.
+Current truth remains a derived resolution over Claims, Assertions, scoped authority, time, Context, policy, and source state. Richer structure remains progressive: an ordinary Markdown + Git project can participate with near-zero additional modeling.
 
 ## Core question
 
@@ -45,8 +39,8 @@ A hard constraint remains: richer structure must be progressive. Projects must b
 1. Define the problem and project intent. **Complete**
 2. Study real engineering information and existing approaches. **Initial discovery complete**
 3. Derive requirements from evidence rather than preferred technology. **Initial requirements baseline complete**
-4. Model the domain. **Current phase**
-5. Design the architecture.
+4. Model the domain. **Initial semantic kernel complete**
+5. Design the architecture. **Current phase**
 6. Build the smallest useful vertical prototype.
 7. Use the project to document its own development and evaluate the model.
 
