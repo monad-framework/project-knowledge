@@ -46,17 +46,9 @@ impl PlanOperation {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "type", rename_all = "snake_case")]
 pub enum PlanPrecondition {
-    OutputPath {
-        path: String,
-    },
-    ExistingRecordState {
-        path: String,
-        state: String,
-    },
-    NativeBlobState {
-        path: String,
-        state: String,
-    },
+    OutputPath { path: String },
+    ExistingRecordState { path: String, state: String },
+    NativeBlobState { path: String, state: String },
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

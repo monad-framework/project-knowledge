@@ -11,7 +11,9 @@ use crate::authoring::plan::{
 };
 use crate::error::{Error, Result};
 use crate::git::GitAdapter;
-use crate::model::{EntityKind, EntityRef, NativeReference, RECORD_SCHEMA, Record, RelationshipOrigin};
+use crate::model::{
+    EntityKind, EntityRef, NativeReference, RECORD_SCHEMA, Record, RelationshipOrigin,
+};
 use crate::records::validate_records;
 
 pub fn parse_intent(text: &str) -> Result<AuthoringIntent> {
@@ -128,7 +130,10 @@ impl<'a> PlanBuilder<'a> {
             };
             let mut origins = generated_origins();
             authored(&mut origins, &["/subject_id", "/role", "/native/locator"]);
-            generated(&mut origins, &["/native/source_system", "/native/object_type"]);
+            generated(
+                &mut origins,
+                &["/native/source_system", "/native/object_type"],
+            );
             observed(&mut origins, &["/native/state"]);
             self.add_new(&item.alias, EntityKind::Representation, record, origins)?;
         }
@@ -181,7 +186,8 @@ impl<'a> PlanBuilder<'a> {
             }
             let mut generated_representation_ids = Vec::new();
             for reference in &item.generated_representations {
-                generated_representation_ids.push(self.resolve(reference, EntityKind::Representation)?);
+                generated_representation_ids
+                    .push(self.resolve(reference, EntityKind::Representation)?);
             }
             let id = Uuid::new_v4();
             let recorded_at = item
@@ -217,19 +223,20 @@ impl<'a> PlanBuilder<'a> {
 
         for item in &intent.assertions {
             let claim_id = self.resolve(&item.claim, EntityKind::Claim)?;
-            let representation_id = self.resolve(&item.representation, EntityKind::Representation)?;
+            let representation_id =
+                self.resolve(&item.representation, EntityKind::Representation)?;
             let context_id = item
                 .context
                 .as_ref()
                 .map(|reference| self.resolve(reference, EntityKind::Context))
                 .transpose()?;
-            let source_state = self
-                .records
-                .get(&representation_id)
-                .and_then(|record| match record {
-                    Record::Representation { native, .. } => Some(native.clone()),
-                    _ => None,
-                });
+            let source_state =
+                self.records
+                    .get(&representation_id)
+                    .and_then(|record| match record {
+                        Record::Representation { native, .. } => Some(native.clone()),
+                        _ => None,
+                    });
             let id = Uuid::new_v4();
             let record = Record::Assertion {
                 schema: RECORD_SCHEMA.to_string(),
@@ -264,14 +271,29 @@ impl<'a> PlanBuilder<'a> {
             if item.context.is_some() {
                 origins.insert("/context_id".to_string(), FieldOrigin::Authored);
             }
-            if matches!(record, Record::Assertion { source_state: Some(_), .. }) {
+            if matches!(
+                record,
+                Record::Assertion {
+                    source_state: Some(_),
+                    ..
+                }
+            ) {
                 observed(&mut origins, &["/source_state"]);
             }
-            self.add_new_optional(item.alias.as_deref(), EntityKind::Assertion, record, origins)?;
+            self.add_new_optional(
+                item.alias.as_deref(),
+                EntityKind::Assertion,
+                record,
+                origins,
+            )?;
         }
 
         for item in &intent.authorities {
-            let Some(concern) = item.concern.as_ref().filter(|value| !value.trim().is_empty()) else {
+            let Some(concern) = item
+                .concern
+                .as_ref()
+                .filter(|value| !value.trim().is_empty())
+            else {
                 self.blockers.push(PlanMessage::new(
                     "authority_concern_required",
                     "Authority requires an explicit concern/scope",
@@ -286,7 +308,8 @@ impl<'a> PlanBuilder<'a> {
                 continue;
             };
             let subject_id = self.resolve(&item.subject, EntityKind::Subject)?;
-            let representation_id = self.resolve(&item.representation, EntityKind::Representation)?;
+            let representation_id =
+                self.resolve(&item.representation, EntityKind::Representation)?;
             let context_id = item
                 .context
                 .as_ref()
@@ -330,7 +353,12 @@ impl<'a> PlanBuilder<'a> {
             if item.context.is_some() {
                 origins.insert("/context_id".to_string(), FieldOrigin::Authored);
             }
-            self.add_new_optional(item.alias.as_deref(), EntityKind::Authority, record, origins)?;
+            self.add_new_optional(
+                item.alias.as_deref(),
+                EntityKind::Authority,
+                record,
+                origins,
+            )?;
         }
 
         for item in &intent.relationships {
@@ -370,7 +398,12 @@ impl<'a> PlanBuilder<'a> {
             if item.activity.is_some() {
                 origins.insert("/activity_id".to_string(), FieldOrigin::Authored);
             }
-            self.add_new_optional(item.alias.as_deref(), EntityKind::Relationship, record, origins)?;
+            self.add_new_optional(
+                item.alias.as_deref(),
+                EntityKind::Relationship,
+                record,
+                origins,
+            )?;
         }
 
         for item in &intent.evidence_evaluations {
@@ -400,7 +433,10 @@ impl<'a> PlanBuilder<'a> {
                 notes: item.notes.clone(),
             };
             let mut origins = generated_origins();
-            authored(&mut origins, &["/claim_id", "/method", "/result", "/inputs"]);
+            authored(
+                &mut origins,
+                &["/claim_id", "/method", "/result", "/inputs"],
+            );
             origins.insert(
                 "/recorded_at".to_string(),
                 if item.recorded_at.is_some() {
@@ -436,10 +472,11 @@ impl<'a> PlanBuilder<'a> {
             });
         }
         for (path, state) in self.existing_states {
-            self.preconditions.push(PlanPrecondition::ExistingRecordState {
-                path: relative_string(&path),
-                state,
-            });
+            self.preconditions
+                .push(PlanPrecondition::ExistingRecordState {
+                    path: relative_string(&path),
+                    state,
+                });
         }
         for (path, state) in self.native_states {
             self.preconditions.push(PlanPrecondition::NativeBlobState {
@@ -450,7 +487,11 @@ impl<'a> PlanBuilder<'a> {
 
         if self.blockers.is_empty() {
             let mut prospective = self.catalog.records().to_vec();
-            prospective.extend(self.operations.iter().map(|operation| operation.record.clone()));
+            prospective.extend(
+                self.operations
+                    .iter()
+                    .map(|operation| operation.record.clone()),
+            );
             if let Err(error) = validate_records(&prospective) {
                 self.blockers.push(PlanMessage::new(
                     "prospective_validation_failed",
@@ -509,14 +550,17 @@ impl<'a> PlanBuilder<'a> {
 
     fn add_alias(&mut self, alias: &str, kind: EntityKind, id: Uuid) -> Result<()> {
         if alias.trim().is_empty() {
-            return Err(Error::AuthoringInput("local alias must not be empty".to_string()));
+            return Err(Error::AuthoringInput(
+                "local alias must not be empty".to_string(),
+            ));
         }
         if self.aliases.contains_key(alias) {
             return Err(Error::AuthoringInput(format!(
                 "duplicate local alias {alias}"
             )));
         }
-        self.aliases.insert(alias.to_string(), AliasEntry { kind, id });
+        self.aliases
+            .insert(alias.to_string(), AliasEntry { kind, id });
         Ok(())
     }
 
@@ -535,9 +579,10 @@ impl<'a> PlanBuilder<'a> {
                     }
                     return Ok(id);
                 }
-                let entry = self.aliases.get(alias).copied().ok_or_else(|| {
-                    Error::AuthoringInput(format!("unknown local alias {alias}"))
-                })?;
+                let entry =
+                    self.aliases.get(alias).copied().ok_or_else(|| {
+                        Error::AuthoringInput(format!("unknown local alias {alias}"))
+                    })?;
                 if entry.kind != expected {
                     return Err(Error::AuthoringInput(format!(
                         "alias {alias} is {:?}, expected {expected:?}",
@@ -614,10 +659,12 @@ fn safe_relative_path(value: &str) -> Result<PathBuf> {
             "native path must be repository-relative: {value}"
         )));
     }
-    if path
-        .components()
-        .any(|component| matches!(component, Component::ParentDir | Component::RootDir | Component::Prefix(_)))
-    {
+    if path.components().any(|component| {
+        matches!(
+            component,
+            Component::ParentDir | Component::RootDir | Component::Prefix(_)
+        )
+    }) {
         return Err(Error::AuthoringInput(format!(
             "native path escapes repository root: {value}"
         )));

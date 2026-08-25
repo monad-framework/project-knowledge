@@ -59,7 +59,10 @@ fn render_operation(out: &mut String, operation: &PlanOperation) {
             ..
         } => {
             let _ = writeln!(out, "Assertion");
-            let _ = writeln!(out, "  claim {claim_id} asserted by representation {representation_id}");
+            let _ = writeln!(
+                out,
+                "  claim {claim_id} asserted by representation {representation_id}"
+            );
             if let Some(value) = valid_from {
                 let _ = writeln!(out, "  valid from: {value}");
             }
@@ -78,7 +81,10 @@ fn render_operation(out: &mut String, operation: &PlanOperation) {
             ..
         } => {
             let _ = writeln!(out, "Authority");
-            let _ = writeln!(out, "  representation {representation_id} governs {concern}");
+            let _ = writeln!(
+                out,
+                "  representation {representation_id} governs {concern}"
+            );
             let _ = writeln!(out, "  basis: {basis}");
             if let Some(value) = valid_from {
                 let _ = writeln!(out, "  valid from: {value}");
@@ -97,7 +103,11 @@ fn render_operation(out: &mut String, operation: &PlanOperation) {
             ..
         } => {
             let _ = writeln!(out, "Relationship");
-            let _ = writeln!(out, "  {:?}:{} --{}--> {:?}:{}", from.kind, from.id, relation, to.kind, to.id);
+            let _ = writeln!(
+                out,
+                "  {:?}:{} --{}--> {:?}:{}",
+                from.kind, from.id, relation, to.kind, to.id
+            );
             let _ = writeln!(out, "  origin: {origin:?}");
             let _ = writeln!(out, "  id: {id}");
         }
@@ -111,7 +121,11 @@ fn render_operation(out: &mut String, operation: &PlanOperation) {
             let _ = writeln!(out, "Activity");
             let _ = writeln!(out, "  {activity_type}");
             let _ = writeln!(out, "  used inputs: {}", used.len());
-            let _ = writeln!(out, "  generated representations: {}", generated_representation_ids.len());
+            let _ = writeln!(
+                out,
+                "  generated representations: {}",
+                generated_representation_ids.len()
+            );
             let _ = writeln!(out, "  id: {id}");
         }
         Record::Context { id, dimensions, .. } => {

@@ -5,14 +5,18 @@ use std::path::{Path, PathBuf};
 use clap::{Parser, Subcommand};
 use project_knowledge::{
     AuthoringIntent, Error, ReadModel, Result, apply_capture_plan, build_capture_plan, compile,
-    compile_in_memory, default_db_path, load_plan, load_records, parse_intent, rebuild, render_plan,
-    save_plan,
+    compile_in_memory, default_db_path, load_plan, load_records, parse_intent, rebuild,
+    render_plan, save_plan,
 };
 use serde::Serialize;
 use uuid::Uuid;
 
 #[derive(Debug, Parser)]
-#[command(name = "pk", version, about = "Project Knowledge local semantic runtime")]
+#[command(
+    name = "pk",
+    version,
+    about = "Project Knowledge local semantic runtime"
+)]
 struct Cli {
     #[arg(long, global = true, default_value = ".")]
     root: PathBuf,
@@ -242,7 +246,10 @@ fn confirm(prompt: &str) -> Result<bool> {
     io::stderr().flush()?;
     let mut input = String::new();
     io::stdin().read_line(&mut input)?;
-    Ok(matches!(input.trim().to_ascii_lowercase().as_str(), "y" | "yes"))
+    Ok(matches!(
+        input.trim().to_ascii_lowercase().as_str(),
+        "y" | "yes"
+    ))
 }
 
 fn init(root: &Path) -> Result<()> {

@@ -124,11 +124,15 @@ fn safe_plan_path(value: &str) -> Result<PathBuf> {
     if path.as_os_str().is_empty() || path.is_absolute() {
         return Err(Error::Conflict(format!("unsafe plan path {value}")));
     }
-    if path
-        .components()
-        .any(|component| matches!(component, Component::ParentDir | Component::RootDir | Component::Prefix(_)))
-    {
-        return Err(Error::Conflict(format!("plan path escapes repository root: {value}")));
+    if path.components().any(|component| {
+        matches!(
+            component,
+            Component::ParentDir | Component::RootDir | Component::Prefix(_)
+        )
+    }) {
+        return Err(Error::Conflict(format!(
+            "plan path escapes repository root: {value}"
+        )));
     }
     Ok(path)
 }
