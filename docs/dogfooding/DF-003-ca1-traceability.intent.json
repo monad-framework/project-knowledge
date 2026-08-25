@@ -1,0 +1,112 @@
+{
+  "schema": "pk-authoring/v1",
+  "subject": {
+    "as": "ca1",
+    "new": {
+      "label": "CA-1 — Guided Capture and Scaffolding capability"
+    }
+  },
+  "representations": [
+    {
+      "as": "df1",
+      "subject": "ca1",
+      "path": "docs/dogfooding/DF-001-adr-status-recovery.md",
+      "role": "motivating_evidence"
+    },
+    {
+      "as": "df2",
+      "subject": "ca1",
+      "path": "docs/dogfooding/DF-002-serialization-choice.md",
+      "role": "motivating_evidence"
+    },
+    {
+      "as": "design",
+      "subject": "ca1",
+      "path": "docs/authoring/README.md",
+      "role": "capability_design"
+    },
+    {
+      "as": "decision",
+      "subject": "ca1",
+      "path": "docs/decisions/ADR-0003-plan-review-apply-authoring.md",
+      "role": "architecture_decision"
+    },
+    {
+      "as": "closure",
+      "subject": "ca1",
+      "path": "docs/authoring/closure.md",
+      "role": "verification_record"
+    }
+  ],
+  "claims": [
+    {
+      "as": "complete",
+      "subject": "ca1",
+      "concern": "capability_status",
+      "value": "implemented_and_validated"
+    }
+  ],
+  "activities": [
+    {
+      "as": "delivery",
+      "activity_type": "evidence_driven_capability_delivery",
+      "used": [
+        "docs/dogfooding/DF-001-adr-status-recovery.md",
+        "docs/dogfooding/DF-002-serialization-choice.md"
+      ],
+      "generated_representations": ["design", "decision", "closure"]
+    }
+  ],
+  "assertions": [
+    {
+      "claim": "complete",
+      "representation": "closure"
+    }
+  ],
+  "authorities": [
+    {
+      "subject": "ca1",
+      "concern": "capability_status",
+      "representation": "closure",
+      "basis": "CA-1 closure after CA-A01 through CA-A18 and strict CI passed"
+    }
+  ],
+  "relationships": [
+    {
+      "from": { "kind": "representation", "ref": "df1" },
+      "relation": "motivates",
+      "to": { "kind": "representation", "ref": "design" },
+      "activity": "delivery"
+    },
+    {
+      "from": { "kind": "representation", "ref": "df2" },
+      "relation": "motivates",
+      "to": { "kind": "representation", "ref": "design" },
+      "activity": "delivery"
+    },
+    {
+      "from": { "kind": "representation", "ref": "decision" },
+      "relation": "governs_design_of",
+      "to": { "kind": "representation", "ref": "design" },
+      "activity": "delivery"
+    },
+    {
+      "from": { "kind": "representation", "ref": "closure" },
+      "relation": "verifies",
+      "to": { "kind": "claim", "ref": "complete" },
+      "activity": "delivery"
+    }
+  ],
+  "evidence_evaluations": [
+    {
+      "claim": "complete",
+      "method": "CA-1 acceptance suite and closure verification",
+      "result": "pass",
+      "inputs": [
+        "tests/capture_authoring.rs",
+        "docs/authoring/closure.md"
+      ],
+      "notes": "Evidence is intentionally scoped to CA-1 satisfying its authorized acceptance specification."
+    }
+  ]
+}
