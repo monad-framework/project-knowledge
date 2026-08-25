@@ -15,12 +15,6 @@ pub fn load_records(root: &Path) -> Result<Vec<Record>> {
         return Ok(Vec::new());
     }
 
-    let schema: serde_json::Value = serde_json::from_str(RECORD_SCHEMA_JSON)?;
-    let validator = jsonschema::validator_for(&schema).map_err(|error| Error::Schema {
-        path: PathBuf::from("schemas/v1/record.schema.json"),
-        message: error.to_string(),
-    })?;
-
     let mut files = Vec::new();
     collect_json_files(&records_root, &mut files)?;
     files.sort();
@@ -29,12 +23,7 @@ pub fn load_records(root: &Path) -> Result<Vec<Record>> {
     for path in files {
         let text = fs::read_to_string(&path)?;
         let value: serde_json::Value = serde_json::from_str(&text)?;
-        if let Err(error) = validator.validate(&value) {
-            return Err(Error::Schema {
-                path: path.clone(),
-                message: error.to_string(),
-            });
-        }
+        validate_record_value(&path, &value)?;
         let record: Record = serde_json::from_value(value)?;
         record.semantic_validate()?;
         records.push(record);
@@ -49,10 +38,26 @@ pub fn write_record(root: &Path, record: &Record) -> Result<PathBuf> {
     let dir = root.join(".pk").join("records").join(record.kind_name());
     fs::create_dir_all(&dir)?;
     let path = dir.join(format!("{}.json", record.id()));
+    fs::write(&path, record_text(record)?)?;
+    Ok(path)
+}
+
+pub fn record_text(record: &Record) -> Result<String> {
+    record.semantic_validate()?;
+    let value = serde_json::to_value(record)?;
+    validate_record_value(Path::new("<planned-record>"), &value)?;
     let mut text = serde_json::to_string_pretty(record)?;
     text.push('\n');
-    fs::write(&path, text)?;
-    Ok(path)
+    Ok(text)
+}
+
+pub fn validate_records(records: &[Record]) -> Result<()> {
+    for record in records {
+        record.semantic_validate()?;
+        let value = serde_json::to_value(record)?;
+        validate_record_value(Path::new("<planned-record>"), &value)?;
+    }
+    validate_cross_references(records)
 }
 
 pub fn validate_cross_references(records: &[Record]) -> Result<()> {
@@ -163,6 +168,21 @@ pub fn validate_cross_references(records: &[Record]) -> Result<()> {
         }
     }
 
+    Ok(())
+}
+
+fn validate_record_value(path: &Path, value: &serde_json::Value) -> Result<()> {
+    let schema: serde_json::Value = serde_json::from_str(RECORD_SCHEMA_JSON)?;
+    let validator = jsonschema::validator_for(&schema).map_err(|error| Error::Schema {
+        path: PathBuf::from("schemas/v1/record.schema.json"),
+        message: error.to_string(),
+    })?;
+    if let Err(error) = validator.validate(value) {
+        return Err(Error::Schema {
+            path: path.to_path_buf(),
+            message: error.to_string(),
+        });
+    }
     Ok(())
 }
 
