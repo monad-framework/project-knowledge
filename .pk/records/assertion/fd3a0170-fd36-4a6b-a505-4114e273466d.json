@@ -1,0 +1,15 @@
+{
+  "schema": "pk/v1",
+  "kind": "assertion",
+  "id": "fd3a0170-fd36-4a6b-a505-4114e273466d",
+  "claim_id": "bcb240ef-0b9d-4e6b-be79-043c6d07b644",
+  "representation_id": "92157a02-4841-4880-a69e-50fd2e459bca",
+  "recorded_at": "2026-08-25T15:24:13Z",
+  "valid_from": "2026-08-25T15:24:13Z",
+  "source_state": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/architecture/selected-architecture.md",
+    "state": "9310c2867b222ed1ca5888567ccd22f051669d89"
+  }
+}

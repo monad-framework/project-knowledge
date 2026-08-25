@@ -1,0 +1,11 @@
+{
+  "schema": "pk/v1",
+  "kind": "authority",
+  "id": "dd71c9bf-1079-4f04-bf1c-03c94b85db96",
+  "subject_id": "4d679723-33fb-4fda-ad63-9e514a6f11c4",
+  "concern": "decision_status",
+  "representation_id": "bb3c1909-5a27-4bc7-b1fe-2b499d7d985e",
+  "basis": "Before Architecture PR #8 merged, ADR-0001 itself was the authoritative record of its proposal status.",
+  "recorded_at": "2026-08-25T15:21:41Z",
+  "valid_until": "2026-08-25T15:24:13Z"
+}

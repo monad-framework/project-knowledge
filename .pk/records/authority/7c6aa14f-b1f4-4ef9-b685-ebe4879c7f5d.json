@@ -1,0 +1,11 @@
+{
+  "schema": "pk/v1",
+  "kind": "authority",
+  "id": "7c6aa14f-b1f4-4ef9-b685-ebe4879c7f5d",
+  "subject_id": "4d679723-33fb-4fda-ad63-9e514a6f11c4",
+  "concern": "decision_status",
+  "representation_id": "92157a02-4841-4880-a69e-50fd2e459bca",
+  "basis": "Architecture PR #8 merged the selected architecture into main; the selected-architecture document is the current architecture definition for this concern.",
+  "recorded_at": "2026-08-25T15:24:13Z",
+  "valid_from": "2026-08-25T15:24:13Z"
+}

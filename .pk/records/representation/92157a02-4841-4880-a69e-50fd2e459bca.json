@@ -1,0 +1,12 @@
+{
+  "schema": "pk/v1",
+  "kind": "representation",
+  "id": "92157a02-4841-4880-a69e-50fd2e459bca",
+  "subject_id": "4d679723-33fb-4fda-ad63-9e514a6f11c4",
+  "role": "current_architecture_definition",
+  "native": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/architecture/selected-architecture.md"
+  }
+}

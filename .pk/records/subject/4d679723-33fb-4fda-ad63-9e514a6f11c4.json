@@ -1,0 +1,6 @@
+{
+  "schema": "pk/v1",
+  "kind": "subject",
+  "id": "4d679723-33fb-4fda-ad63-9e514a6f11c4",
+  "label": "ADR-0001 — Federated Portable Core architecture decision"
+}

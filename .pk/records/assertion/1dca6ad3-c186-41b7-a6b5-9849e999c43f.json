@@ -1,0 +1,15 @@
+{
+  "schema": "pk/v1",
+  "kind": "assertion",
+  "id": "1dca6ad3-c186-41b7-a6b5-9849e999c43f",
+  "claim_id": "de11b61a-ae7f-410d-9484-ccb4aa2553d5",
+  "representation_id": "bb3c1909-5a27-4bc7-b1fe-2b499d7d985e",
+  "recorded_at": "2026-08-25T15:21:41Z",
+  "valid_until": "2026-08-25T15:24:13Z",
+  "source_state": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/decisions/ADR-0001-federated-portable-core.md",
+    "state": "266b1d540d4c9368f9514b17e7e01362fc5f11f5"
+  }
+}

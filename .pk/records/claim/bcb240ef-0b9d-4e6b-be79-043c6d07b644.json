@@ -1,0 +1,8 @@
+{
+  "schema": "pk/v1",
+  "kind": "claim",
+  "id": "bcb240ef-0b9d-4e6b-be79-043c6d07b644",
+  "subject_id": "4d679723-33fb-4fda-ad63-9e514a6f11c4",
+  "concern": "decision_status",
+  "value": "accepted"
+}
