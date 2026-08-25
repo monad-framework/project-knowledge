@@ -59,7 +59,7 @@ struct StatusOutput {
 
 fn main() -> std::result::Result<(), Box<dyn StdError>> {
     let cli = Cli::parse();
-    match cli.command {
+    match &cli.command {
         Command::Init => {
             init(&cli.root)?;
             emit(
@@ -99,7 +99,7 @@ fn main() -> std::result::Result<(), Box<dyn StdError>> {
             let model = ReadModel::open(&default_db_path(&cli.root))?;
             emit_serializable(
                 &cli,
-                &model.resolve_current(subject, &concern, at.as_deref(), context)?,
+                &model.resolve_current(*subject, concern, at.as_deref(), *context)?,
             )?;
         }
         Command::Freshness { representation } => {
@@ -109,7 +109,7 @@ fn main() -> std::result::Result<(), Box<dyn StdError>> {
                 &cli,
                 &serde_json::json!({
                     "representation": representation,
-                    "freshness": model.representation_freshness(representation)?
+                    "freshness": model.representation_freshness(*representation)?
                 }),
             )?;
         }
@@ -120,7 +120,7 @@ fn main() -> std::result::Result<(), Box<dyn StdError>> {
                 &cli,
                 &serde_json::json!({
                     "evaluation": evaluation,
-                    "state": model.evidence_state(evaluation)?
+                    "state": model.evidence_state(*evaluation)?
                 }),
             )?;
         }
