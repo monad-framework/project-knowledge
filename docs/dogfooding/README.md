@@ -16,12 +16,14 @@ Each dogfood experiment should:
 6. record the semantic footprint and manual steps required; and
 7. derive product changes only from repeated or high-value evidence.
 
+Dogfood tests must also be compositional: an experiment may assert the semantics of its own slice, but must not assume that it owns the whole project-memory corpus.
+
 ## Experiments
 
 | Experiment | Recovery shape | Result | Primary signal |
 | --- | --- | --- | --- |
 | [DF-001 — ADR-0001 current status](DF-001-adr-status-recovery.md) | historical/current decision status + evidence | PASS | M0 semantics sufficient; manual capture burden visible |
-| [DF-002 — Serialization choice](DF-002-serialization-choice.md) | unresolved question → alternatives → selected answer → implementation evidence | Pending CI | Tests `unknown`, alternative preservation, provenance, and repeated capture burden |
+| [DF-002 — Serialization choice](DF-002-serialization-choice.md) | unresolved question → alternatives → selected answer → implementation evidence | PASS | `unknown` and final selection work; alternative semantics are indirect; capture burden repeated |
 
 ## Promotion discipline
 
@@ -34,4 +36,6 @@ Prefer promotion when:
 3. the proposed capability reduces burden without weakening domain invariants; and
 4. deterministic assistance is separated from semantic judgment.
 
-DF-001 alone did not authorize capture tooling. If DF-002 independently reproduces the same authoring burden, low-friction authored capture/scaffolding becomes eligible for detailed design.
+DF-001 and DF-002 independently reproduced the same structural-authoring burden across materially different recovery shapes. **Low-friction authored capture/scaffolding is therefore promoted to detailed design as the first evidence-authorized post-M0 capability.**
+
+That promotion does not authorize semantic auto-decision. Capture tooling may generate deterministic structure, inspect native source state, validate, and suggest; authority scope, semantic equivalence, evidence breadth, and epistemic meaning remain explicit semantic judgments.
