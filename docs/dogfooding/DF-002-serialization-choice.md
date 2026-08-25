@@ -75,9 +75,9 @@ The selected JSON Claim has a claim-relative Evidence Evaluation using the curre
 
 The evaluation confirms that JSON was selected and that the repository implements the portable contract as JSON Schema. It does not prove that JSON must remain the permanent authoring syntax; the technology decision itself explicitly leaves room for future YAML or richer authoring layers that compile into the same logical S2 model.
 
-## Expected executable checks
+## Executable checks
 
-`tests/dogfood_serialization_choice.rs` must verify:
+`tests/dogfood_serialization_choice.rs` verifies:
 
 - the pre-selection query returns `unknown`;
 - the post-selection query resolves JSON;
@@ -85,7 +85,7 @@ The evaluation confirms that JSON was selected and that the repository implement
 - the selection Activity links the open question to the decision Representation; and
 - the implementation evidence remains current.
 
-## Findings to evaluate
+## Findings
 
 ### Unknown may be sufficient for unresolved questions
 
@@ -99,6 +99,16 @@ Representing candidates as unasserted Claims plus typed Relationships is semanti
 
 One case is insufficient to add an epistemic record kind.
 
+### Dogfood tests must compose as project memory grows
+
+The first DF-002 full-suite run exposed a test-harness defect in DF-001: its test asserted that the entire repository contained exactly 10 semantic records. Adding 14 legitimate DF-002 records increased the repository total to 24 and caused DF-001 to fail even though its own recovery semantics were unchanged.
+
+The fix scopes DF-001 to its own semantic expectations while only requiring the compiler's reported count to match the actual loaded record set. This is not a domain-model failure, but it is a useful dogfooding rule:
+
+> A recovery experiment must not assume that it owns the whole project-memory corpus.
+
+Future dogfood tests should be compositional by default.
+
 ### Capture burden is now a repeated signal
 
 DF-001 required 10 authored S2 records. DF-002 requires 14 more for a different recovery shape. Both require manual UUIDs, cross-references, source bindings, timestamps, and validity semantics.
@@ -109,7 +119,7 @@ The repeated friction is not that these semantics are meaningless; most encode d
 
 DF-002 provides the second independent self-dogfood signal supporting **low-friction authored capture/scaffolding** as a real post-M0 capability candidate.
 
-This is now strong enough to promote that capability into detailed design after DF-002 merges, while preserving a strict boundary:
+If the final DF-002 semantic run passes, this is strong enough to promote that capability into detailed design after DF-002 merges, while preserving a strict boundary:
 
 - tooling may generate deterministic structure;
 - tooling may inspect native source state;
