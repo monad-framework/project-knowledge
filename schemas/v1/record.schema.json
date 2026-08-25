@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-knowledge.dev/schema/v1/record.schema.json",
+  "title": "Project Knowledge Portable Record v1",
+  "oneOf": [
+    { "$ref": "#/$defs/subject" },
+    { "$ref": "#/$defs/representation" },
+    { "$ref": "#/$defs/claim" },
+    { "$ref": "#/$defs/assertion" },
+    { "$ref": "#/$defs/authority" },
+    { "$ref": "#/$defs/relationship" },
+    { "$ref": "#/$defs/activity" },
+    { "$ref": "#/$defs/context" },
+    { "$ref": "#/$defs/evidence_evaluation" }
+  ],
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+    },
+    "schema": { "const": "pk/v1" },
+    "native_reference": {
+      "type": "object",
+      "required": ["source_system", "object_type", "locator"],
+      "properties": {
+        "source_system": { "type": "string", "minLength": 1 },
+        "object_type": { "type": "string", "minLength": 1 },
+        "locator": { "type": "string", "minLength": 1 },
+        "state": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "entity_ref": {
+      "type": "object",
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "subject",
+            "representation",
+            "claim",
+            "assertion",
+            "authority",
+            "relationship",
+            "activity",
+            "context",
+            "evidence_evaluation"
+          ]
+        },
+        "id": { "$ref": "#/$defs/uuid" }
+      },
+      "additionalProperties": false
+    },
+    "subject": {
+      "type": "object",
+      "required": ["schema", "kind", "id"],
+      "properties": {
+        "schema": { "$ref": "#/$defs/schema" },
+        "kind": { "const": "subject" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "label": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "representation": {
+      "type": "object",
+      "required": ["schema", "kind", "id", "role", "native"],
+      "properties": {
+        "schema": { "$ref": "#/$defs/schema" },
+        "kind": { "const": "representation" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "subject_id": { "$ref": "#/$defs/uuid" },
+        "role": { "type": "string", "minLength": 1 },
+        "native": { "$ref": "#/$defs/native_reference" }
+      },
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": ["schema", "kind", "id", "subject_id", "concern", "value"],
+      "properties": {
+        "schema": { "$ref": "#/$defs/schema" },
+        "kind": { "const": "claim" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "subject_id": { "$ref": "#/$defs/uuid" },
+        "concern": { "type": "string", "minLength": 1 },
+        "value": true
+      },
+      "additionalProperties": false
+    },
+    "assertion": {
+      "type": "object",
+      "required": ["schema", "kind", "id", "claim_id", "representation_id", "recorded_at"],
+      "properties": {
+        "schema": { "$ref": "#/$defs/schema" },
+        "kind": { "const": "assertion" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "claim_id": { "$ref": "#/$defs/uuid" },
+        "representation_id": { "$ref": "#/$defs/uuid" },
+        "recorded_at": { "type": "string", "minLength": 1 },
+        "valid_from": { "type": "string", "minLength": 1 },
+        "valid_until": { "type": "string", "minLength": 1 },
+        "source_state": { "$ref": "#/$defs/native_reference" },
+        "context_id": { "$ref": "#/$defs/uuid" }
+      },
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "schema",
+        "kind",
+        "id",
+        "subject_id",
+        "concern",
+        "representation_id",
+        "basis",
+        "recorded_at"
+      ],
+      "properties": {
+        "schema": { "$ref": "#/$defs/schema" },
+        "kind": { "const": "authority" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "subject_id": { "$ref": "#/$defs/uuid" },
+        "concern": { "type": "string", "minLength": 1 },
+        "representation_id": { "$ref": "#/$defs/uuid" },
+        "basis": { "type": "string", "minLength": 1 },
+        "recorded_at": { "type": "string", "minLength": 1 },
+        "valid_from": { "type": "string", "minLength": 1 },
+        "valid_until": { "type": "string", "minLength": 1 },
+        "context_id": { "$ref": "#/$defs/uuid" }
+      },
+      "additionalProperties": false
+    },
+    "relationship": {
+      "type": "object",
+      "required": ["schema", "kind", "id", "from", "relation", "to", "origin"],
+      "properties": {
+        "schema": { "$ref": "#/$defs/schema" },
+        "kind": { "const": "relationship" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "from": { "$ref": "#/$defs/entity_ref" },
+        "relation": { "type": "string", "minLength": 1 },
+        "to": { "$ref": "#/$defs/entity_ref" },
+        "origin": { "enum": ["authored", "imported", "derived", "inferred"] },
+        "activity_id": { "$ref": "#/$defs/uuid" }
+      },
+      "additionalProperties": false
+    },
+    "activity": {
+      "type": "object",
+      "required": ["schema", "kind", "id", "activity_type", "recorded_at"],
+      "properties": {
+        "schema": { "$ref": "#/$defs/schema" },
+        "kind": { "const": "activity" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "activity_type": { "type": "string", "minLength": 1 },
+        "recorded_at": { "type": "string", "minLength": 1 },
+        "used": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/native_reference" },
+          "default": []
+        },
+        "generated_representation_ids": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/uuid" },
+          "default": []
+        }
+      },
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "required": ["schema", "kind", "id"],
+      "properties": {
+        "schema": { "$ref": "#/$defs/schema" },
+        "kind": { "const": "context" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "dimensions": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "default": {}
+        },
+        "source_state": { "$ref": "#/$defs/native_reference" }
+      },
+      "additionalProperties": false
+    },
+    "evidence_evaluation": {
+      "type": "object",
+      "required": [
+        "schema",
+        "kind",
+        "id",
+        "claim_id",
+        "method",
+        "result",
+        "recorded_at"
+      ],
+      "properties": {
+        "schema": { "$ref": "#/$defs/schema" },
+        "kind": { "const": "evidence_evaluation" },
+        "id": { "$ref": "#/$defs/uuid" },
+        "claim_id": { "$ref": "#/$defs/uuid" },
+        "method": { "type": "string", "minLength": 1 },
+        "result": { "enum": ["pass", "fail", "inconclusive"] },
+        "recorded_at": { "type": "string", "minLength": 1 },
+        "inputs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/native_reference" },
+          "default": []
+        },
+        "context_id": { "$ref": "#/$defs/uuid" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
