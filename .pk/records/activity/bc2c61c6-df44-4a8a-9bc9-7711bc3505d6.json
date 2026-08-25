@@ -1,0 +1,26 @@
+{
+  "kind": "activity",
+  "schema": "pk/v1",
+  "id": "bc2c61c6-df44-4a8a-9bc9-7711bc3505d6",
+  "activity_type": "evidence_driven_capability_delivery",
+  "recorded_at": "2026-08-25T23:52:39.39926508Z",
+  "used": [
+    {
+      "source_system": "git",
+      "object_type": "blob",
+      "locator": "docs/dogfooding/DF-001-adr-status-recovery.md",
+      "state": "f6bd995a47759f2c323f0721c7d6812cd61b44dc"
+    },
+    {
+      "source_system": "git",
+      "object_type": "blob",
+      "locator": "docs/dogfooding/DF-002-serialization-choice.md",
+      "state": "6f119b5cc9bcc92406155f88b5cf232444373fc6"
+    }
+  ],
+  "generated_representation_ids": [
+    "c26cdd90-8f96-4cbf-ade4-6388b1e5a601",
+    "eec3b4b0-b416-4000-b213-75f375f8ef2e",
+    "d433296c-440a-4e03-87c0-fa3b2170b164"
+  ]
+}

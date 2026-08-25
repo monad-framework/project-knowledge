@@ -1,0 +1,13 @@
+{
+  "kind": "representation",
+  "schema": "pk/v1",
+  "id": "d433296c-440a-4e03-87c0-fa3b2170b164",
+  "subject_id": "f8adff3e-11ad-43a9-9275-7d30fc9d1973",
+  "role": "verification_record",
+  "native": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/authoring/closure.md",
+    "state": "36abf77a44c793bd4d3801d3212391cc610816a5"
+  }
+}

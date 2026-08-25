@@ -1,0 +1,10 @@
+{
+  "kind": "authority",
+  "schema": "pk/v1",
+  "id": "14d840f2-146a-474a-aed5-d759dbdf23d7",
+  "subject_id": "f8adff3e-11ad-43a9-9275-7d30fc9d1973",
+  "concern": "capability_status",
+  "representation_id": "d433296c-440a-4e03-87c0-fa3b2170b164",
+  "basis": "CA-1 closure after CA-A01 through CA-A18 and strict CI passed",
+  "recorded_at": "2026-08-25T23:52:39.39926508Z"
+}

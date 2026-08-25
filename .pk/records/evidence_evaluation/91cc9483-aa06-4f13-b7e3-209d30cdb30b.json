@@ -1,0 +1,24 @@
+{
+  "kind": "evidence_evaluation",
+  "schema": "pk/v1",
+  "id": "91cc9483-aa06-4f13-b7e3-209d30cdb30b",
+  "claim_id": "a033a49d-1675-41d0-aacc-00cae1f2d724",
+  "method": "CA-1 acceptance suite and closure verification",
+  "result": "pass",
+  "recorded_at": "2026-08-25T23:52:39.39926508Z",
+  "inputs": [
+    {
+      "source_system": "git",
+      "object_type": "blob",
+      "locator": "tests/capture_authoring.rs",
+      "state": "27ed3a254227f462e39d76ef974c5035cc691333"
+    },
+    {
+      "source_system": "git",
+      "object_type": "blob",
+      "locator": "docs/authoring/closure.md",
+      "state": "36abf77a44c793bd4d3801d3212391cc610816a5"
+    }
+  ],
+  "notes": "Evidence is intentionally scoped to CA-1 satisfying its authorized acceptance specification."
+}

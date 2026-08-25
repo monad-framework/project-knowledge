@@ -1,0 +1,13 @@
+{
+  "kind": "representation",
+  "schema": "pk/v1",
+  "id": "e089d460-4af8-4c7c-8d08-48d213d83175",
+  "subject_id": "f8adff3e-11ad-43a9-9275-7d30fc9d1973",
+  "role": "motivating_evidence",
+  "native": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/dogfooding/DF-001-adr-status-recovery.md",
+    "state": "f6bd995a47759f2c323f0721c7d6812cd61b44dc"
+  }
+}

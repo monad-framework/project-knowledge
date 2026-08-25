@@ -1,0 +1,16 @@
+{
+  "kind": "relationship",
+  "schema": "pk/v1",
+  "id": "09202577-fb78-4527-8817-3c01465a8a06",
+  "from": {
+    "kind": "representation",
+    "id": "e089d460-4af8-4c7c-8d08-48d213d83175"
+  },
+  "relation": "motivates",
+  "to": {
+    "kind": "representation",
+    "id": "c26cdd90-8f96-4cbf-ade4-6388b1e5a601"
+  },
+  "origin": "authored",
+  "activity_id": "bc2c61c6-df44-4a8a-9bc9-7711bc3505d6"
+}
