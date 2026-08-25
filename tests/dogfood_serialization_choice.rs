@@ -19,7 +19,9 @@ const EVIDENCE_JSON: Uuid = Uuid::from_u128(0x6d2ab31704c64f5aa9cba017f394d56c);
 fn claim_value(records: &[Record], id: Uuid) -> Option<&Value> {
     records.iter().find_map(|record| match record {
         Record::Claim {
-            id: claim_id, value, ..
+            id: claim_id,
+            value,
+            ..
         } if *claim_id == id => Some(value),
         _ => None,
     })
@@ -64,14 +66,14 @@ fn df_002_preserves_uncertainty_alternatives_and_selection() {
         .iter()
         .filter_map(|record| match record {
             Record::Relationship {
-                from,
-                relation,
-                to,
-                ..
+                from, relation, to, ..
             } if relation == "alternative_considered_in"
                 && from.kind == EntityKind::Claim
                 && to.kind == EntityKind::Representation
-                && to.id == REP_DECISION => Some(from.id),
+                && to.id == REP_DECISION =>
+            {
+                Some(from.id)
+            }
             _ => None,
         })
         .collect();
