@@ -1,4 +1,4 @@
-name: rustfmt-diagnostic
+name: m0-diagnostic
 
 on:
   push:
@@ -9,15 +9,22 @@ permissions:
   contents: read
 
 jobs:
-  patch:
+  diagnostic:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Format working tree
-        run: cargo fmt
-      - name: Capture patch
-        run: git diff -- src tests > rustfmt.patch
+      - name: Check formatting
+        run: cargo fmt --check
+      - name: Capture Clippy diagnostics
+        shell: bash
+        run: |
+          set +e
+          cargo clippy --all-targets --all-features -- -D warnings > clippy.log 2>&1
+          echo $? > clippy.exit
+          exit 0
       - uses: actions/upload-artifact@v4
         with:
-          name: rustfmt-patch
-          path: rustfmt.patch
+          name: clippy-diagnostic
+          path: |
+            clippy.log
+            clippy.exit
