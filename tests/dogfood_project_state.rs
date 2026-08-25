@@ -1,6 +1,8 @@
 use std::path::Path;
 
-use project_knowledge::{EvidenceState, Record, ResolutionOutcome, compile_in_memory, load_records};
+use project_knowledge::{
+    EvidenceState, Record, ResolutionOutcome, compile_in_memory, load_records,
+};
 use serde_json::Value;
 use uuid::Uuid;
 
@@ -12,7 +14,9 @@ const EVIDENCE_ACCEPTED: Uuid = Uuid::from_u128(0xd5e30f0c5b524c6ba1f00ccd50c61a
 fn claim_value(records: &[Record], id: Uuid) -> Option<&Value> {
     records.iter().find_map(|record| match record {
         Record::Claim {
-            id: claim_id, value, ..
+            id: claim_id,
+            value,
+            ..
         } if *claim_id == id => Some(value),
         _ => None,
     })
