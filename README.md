@@ -6,23 +6,35 @@ The project begins from a practical problem: large software projects produce mor
 
 ## Status
 
-**Phase 2 — Requirements**
+**Phase 3 — Domain Modeling**
 
-The project has completed the first discovery sequence from real corpus evidence through existing-approach research and evidence-derived capability promotion. Formal technology-neutral requirements are now being specified under [`docs/requirements/`](docs/requirements/).
+The first formal, evidence-traceable requirements baseline has been merged under [`docs/requirements/`](docs/requirements/). Current work is deriving the minimum technology-neutral semantic kernel under [`docs/domain/`](docs/domain/).
 
 Discovery remains open under [`docs/discovery/`](docs/discovery/) where the evidence matrix still identifies under-evidenced concepts. The completed project foundation remains under [`docs/inception/`](docs/inception/).
 
 No implementation architecture or technology stack has been selected.
 
-## Working hypothesis
+## Current domain hypothesis
 
-Project Knowledge is increasingly understood not as a replacement wiki, issue tracker, source-control system, or generic knowledge graph, but as a **low-friction project-memory layer** that can connect heterogeneous engineering artifacts through stable semantic identity, scoped authority, provenance, temporal and epistemic evolution, claim-relative evidence, and explicit relationships.
+The requirements can be satisfied by a relatively small cross-tool semantic kernel rather than a universal ontology of every engineering artifact.
 
-That shared memory can then support current-state, historical, impact, retrieval, provenance, and narrative views without replacing the native tools that created the information.
+The candidate kernel centers on:
 
-A second hypothesis has become a hard constraint: richer structure must remain progressive. Projects must be able to continue using ordinary files, ordering, links, search, and Git when those already solve the relevant recovery problem.
+- native Source Systems and inspectable Native References;
+- optional stable Subjects where cross-representation continuity matters;
+- concrete Representations and their roles/lineage;
+- Claims separated from source-bound Assertions;
+- scoped Authority Assignments;
+- typed Relationships only where semantics justify them;
+- provenance Activities and Agents compatible with mature provenance concepts;
+- conditional valid/recorded time and material Context;
+- claim-relative Evidence Evaluations;
+- optional epistemic annotations; and
+- recovery Projections over the shared model.
 
-These statements remain subject to requirements review, domain modeling, and architecture validation.
+Current truth, historical truth, contradiction diagnostics, freshness, impact, and recovery paths are treated as **derived views**, not independent truth stores.
+
+A hard constraint remains: richer structure must be progressive. Projects must be able to continue using ordinary files, ordering, links, search, and Git when those already solve the relevant recovery problem.
 
 ## Core question
 
@@ -32,8 +44,8 @@ These statements remain subject to requirements review, domain modeling, and arc
 
 1. Define the problem and project intent. **Complete**
 2. Study real engineering information and existing approaches. **Initial discovery complete**
-3. Derive requirements from evidence rather than preferred technology. **Current phase**
-4. Model the domain.
+3. Derive requirements from evidence rather than preferred technology. **Initial requirements baseline complete**
+4. Model the domain. **Current phase**
 5. Design the architecture.
 6. Build the smallest useful vertical prototype.
 7. Use the project to document its own development and evaluate the model.
