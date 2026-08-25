@@ -1,0 +1,12 @@
+{
+  "schema": "pk/v1",
+  "kind": "representation",
+  "id": "a3d57c18-2e64-4b9f-8c21-7f0a5d3e9b62",
+  "subject_id": "7a4e2d61-1c3b-4f82-a6d5-9e71b2c4d8f0",
+  "role": "technology_decision_record",
+  "native": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/m0/technology-decisions.md"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "pk/v1",
+  "kind": "activity",
+  "id": "7e3bc428-15d7-406b-badc-b12804a5e67d",
+  "activity_type": "m0_technology_selection",
+  "recorded_at": "2026-08-25T15:42:21Z",
+  "used": [
+    {
+      "source_system": "git",
+      "object_type": "blob",
+      "locator": "docs/architecture/open-questions.md",
+      "state": "2a4aecf6e53c9ee325b6c2d68a8f62bce7ea800e"
+    }
+  ],
+  "generated_representation_ids": [
+    "a3d57c18-2e64-4b9f-8c21-7f0a5d3e9b62"
+  ]
+}

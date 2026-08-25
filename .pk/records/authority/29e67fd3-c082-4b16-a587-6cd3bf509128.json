@@ -1,0 +1,11 @@
+{
+  "schema": "pk/v1",
+  "kind": "authority",
+  "id": "29e67fd3-c082-4b16-a587-6cd3bf509128",
+  "subject_id": "7a4e2d61-1c3b-4f82-a6d5-9e71b2c4d8f0",
+  "concern": "serialization.format",
+  "representation_id": "a3d57c18-2e64-4b9f-8c21-7f0a5d3e9b62",
+  "basis": "M0 detailed-design technology decision",
+  "recorded_at": "2026-08-25T15:42:21Z",
+  "valid_from": "2026-08-25T15:42:21Z"
+}

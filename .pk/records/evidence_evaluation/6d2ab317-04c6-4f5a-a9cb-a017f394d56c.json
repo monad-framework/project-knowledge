@@ -1,0 +1,24 @@
+{
+  "schema": "pk/v1",
+  "kind": "evidence_evaluation",
+  "id": "6d2ab317-04c6-4f5a-a9cb-a017f394d56c",
+  "claim_id": "c4f1298e-7a3d-4b61-9e52-1d8c6f0a4b73",
+  "method": "repository_implementation_inspection",
+  "result": "pass",
+  "recorded_at": "2026-08-25T22:27:00Z",
+  "inputs": [
+    {
+      "source_system": "git",
+      "object_type": "blob",
+      "locator": "docs/m0/technology-decisions.md",
+      "state": "bac13ef06f293059e6b4d8ae9b79dd90e5b7488d"
+    },
+    {
+      "source_system": "git",
+      "object_type": "blob",
+      "locator": "schemas/v1/record.schema.json",
+      "state": "a4ec5b2e043a3a93fdfe414229dba8d265dca9eb"
+    }
+  ],
+  "notes": "Confirms that M0 selected JSON and that the checked-in portable record schema is JSON Schema. This does not prove JSON is the permanent authoring syntax."
+}
