@@ -1,0 +1,29 @@
+[package]
+name = "project-knowledge"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.98"
+description = "Executable M0 kernel for Project Knowledge"
+publish = false
+default-run = "pk"
+
+[lib]
+name = "project_knowledge"
+path = "src/lib.rs"
+
+[[bin]]
+name = "pk"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.6.6", features = ["derive"] }
+jiff = "0.2.35"
+jsonschema = { version = "0.50.1", default-features = false }
+rusqlite = { version = "0.40.2", features = ["bundled"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = { version = "1.0.151", features = ["preserve_order"] }
+thiserror = "2.0.20"
+uuid = { version = "1.24.1", features = ["serde", "v4"] }
+
+[dev-dependencies]
+tempfile = "3.27.0"
