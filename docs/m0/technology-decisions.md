@@ -96,3 +96,11 @@ M0 keeps dependencies focused on one architectural responsibility each:
 - `tempfile` — isolated acceptance fixtures.
 
 Dependency count is not minimized at the expense of reimplementing mature infrastructure, but dependencies that would introduce a new architectural subsystem are deferred.
+
+## Reproducible dependency resolution
+
+M0 is an executable application, so the resolved Rust dependency graph is checked in as `Cargo.lock`.
+
+`Cargo.toml` continues to express the direct dependency requirements, while `Cargo.lock` pins the concrete direct and transitive versions used by the repository build. CI runs Clippy and tests with `--locked`, so an unnoticed dependency-resolution change cannot silently alter an otherwise identical M0 verification run.
+
+Lockfile changes are therefore intentional reviewable changes. They should be regenerated and committed when dependencies are deliberately updated, not recreated implicitly during ordinary CI.
