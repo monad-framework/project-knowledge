@@ -1,7 +1,9 @@
 use std::collections::BTreeSet;
 use std::path::Path;
 
-use project_knowledge::{EvidenceState, Record, ResolutionOutcome, compile_in_memory, load_records};
+use project_knowledge::{
+    EvidenceState, Record, ResolutionOutcome, compile_in_memory, load_records,
+};
 use uuid::Uuid;
 
 const SUBJECT: Uuid = Uuid::from_u128(0xf8adff3e11ad43a992757d30fc9d1973);
@@ -81,7 +83,13 @@ fn df_003_recovers_evidence_driven_ca1_delivery_trace() {
         })
         .collect();
     assert_eq!(relations.len(), 4);
-    assert_eq!(relations.iter().filter(|value| **value == "motivates").count(), 2);
+    assert_eq!(
+        relations
+            .iter()
+            .filter(|value| **value == "motivates")
+            .count(),
+        2
+    );
     assert!(relations.contains(&"governs_design_of"));
     assert!(relations.contains(&"verifies"));
 }
