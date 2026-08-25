@@ -181,7 +181,7 @@ impl ReadModel {
                 _ => None,
             })
             .collect::<Vec<_>>();
-        activities.sort_by(|(left, _), (right, _)| left.cmp(right));
+        activities.sort_by_key(|(recorded_at, _)| *recorded_at);
         let Some((_, used)) = activities.last() else {
             return Ok(Freshness::Unknown);
         };
