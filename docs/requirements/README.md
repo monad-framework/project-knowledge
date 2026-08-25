@@ -20,9 +20,11 @@ formal requirements
 
 ## Status
 
-**Requirements draft — architecture not yet authorized.**
+**Initial requirements baseline merged — Domain Modeling active.**
 
-The requirements are mature enough to seed domain modeling, but discovery remains open where the corpus explicitly marks concepts as under-evidenced.
+These requirements are now the normative input to [`../domain/`](../domain/). Discovery remains open where the corpus explicitly marks concepts as under-evidenced, and requirements may be refined if domain validation exposes ambiguity or new evidence changes the need.
+
+Architecture is not yet authorized by implication; the domain model must first settle semantic boundaries and invariants.
 
 ## Contents
 
@@ -76,7 +78,7 @@ These requirements define behavior and constraints. They do **not** select:
 - an AI provider; or
 - an MVP implementation stack.
 
-Those decisions belong to domain modeling and architecture after the requirements are reviewed.
+Those decisions belong to architecture after the domain model has settled the semantic meaning the architecture must preserve.
 
 ## Progressive-formalization rule
 
