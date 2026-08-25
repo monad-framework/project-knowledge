@@ -1,0 +1,51 @@
+name: df003-apply
+
+on:
+  push:
+    branches:
+      - phase6/dogfood-003-ca1-traceability
+    paths:
+      - .github/workflows/df003-apply.yml
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: rustc --version && cargo --version && git --version && gh --version
+      - name: Retrieve exact reviewed plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/df003-plan
+          gh run download 32912636492 \
+            --repo monad-framework/project-knowledge \
+            --name df003-capture-plan \
+            --dir /tmp/df003-plan
+          test -f /tmp/df003-plan/df003-plan.json
+      - name: Apply reviewed plan
+        run: |
+          cargo run --locked -- --root . capture apply \
+            --plan /tmp/df003-plan/df003-plan.json \
+            --yes
+          cargo run --locked -- --root . validate
+          cargo run --locked -- --root . resolve \
+            --subject f8adff3e-11ad-43a9-9275-7d30fc9d1973 \
+            --concern capability_status
+          cargo test --locked --all-targets --all-features
+      - name: Commit CA-1 generated S2 records
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .pk/records
+          if git diff --cached --quiet; then
+            echo "No generated records to commit"
+            exit 0
+          fi
+          git commit -m "dogfood: apply DF-003 through CA-1"
+          git push
