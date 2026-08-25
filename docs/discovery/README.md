@@ -2,11 +2,19 @@
 
 Discovery turns the inception problem statement into evidence-backed requirements.
 
-This phase should resist the temptation to design the system too early. Its job is to understand the information we need to preserve, the workflows in which that information appears, the failure modes of current practices, and the minimum capabilities required to improve them.
+This phase should resist the temptation to design the system too early. Its job is to understand the information we need to preserve, the workflows in which that information appears, the failure modes of current practices, what existing approaches already solve, and the minimum capabilities required to improve what remains.
 
 ## Current status
 
 Discovery is active.
+
+Three major passes are now represented in the repository:
+
+1. real-information corpus and initial cross-case analysis;
+2. counterexamples / knowledge-evolution stress testing; and
+3. existing-approach research and composition analysis.
+
+The next major pass is **evidence-to-capability derivation**.
 
 ### First evidence pass
 
@@ -31,9 +39,36 @@ The second pass deliberately introduced dogfood cases and counterexamples rather
 - [`observations/second-pass-observations.md`](observations/second-pass-observations.md) — findings about assertion-scoped freshness, epistemic refinement, relocation, progressive structure, ordering, selective capture, and negative evidence; and
 - [`corpus/coverage-matrix.md`](corpus/coverage-matrix.md) — explicit support levels and missing case types.
 
-The corpus is no longer Monad-only, but it remains too narrow to establish a general domain model.
+The corpus is no longer Monad-only, but it remains too narrow to establish a universal domain model. The coverage matrix remains active and should continue to expose under-evidenced concepts rather than allowing attractive ideas to become assumptions.
 
-## Planned discovery tracks
+### Existing-approaches pass
+
+The existing-approaches track is under [`existing-approaches/`](existing-approaches/).
+
+It evaluates:
+
+- Git and repository history;
+- docs-as-code and wikis;
+- Architecture Decision Records;
+- issue/work tracking;
+- linked-note / PKM systems;
+- event sourcing;
+- temporal and bitemporal data models;
+- W3C PROV provenance semantics;
+- RDF-style graph representation; and
+- lexical, semantic, and hybrid search / RAG-style retrieval.
+
+Key outputs include:
+
+- [`existing-approaches/evaluation-method.md`](existing-approaches/evaluation-method.md);
+- [`existing-approaches/source-notes.md`](existing-approaches/source-notes.md);
+- focused approach assessments under `existing-approaches/approaches/`;
+- [`existing-approaches/approach-capability-matrix.md`](existing-approaches/approach-capability-matrix.md); and
+- [`existing-approaches/composition-findings.md`](existing-approaches/composition-findings.md).
+
+The strongest result is compositional: existing mechanisms already solve much of the problem well. Project Knowledge is increasingly justified only by the **residual cross-tool project-memory gap** rather than by a need to replace Git, docs, ADRs, issue trackers, provenance standards, temporal models, graphs, or search.
+
+## Discovery tracks
 
 ### 1. Real information corpus
 
@@ -62,27 +97,56 @@ Describe what a person is trying to accomplish when they need project memory. Ex
 
 ### 3. Existing approaches
 
-Study how current tools and practices address portions of the problem: source control, issue trackers, wikis, ADRs, architecture documentation, notebooks, PKM systems, search, graph systems, provenance systems, temporal models, and related approaches.
+Study how current tools, standards, models, and practices address portions of the problem.
 
-The goal is not to prove that existing tools are inadequate. The goal is to identify what already works, what can be composed, and where gaps actually remain.
+This track's guiding question is:
 
-This is the next major discovery track after the counterexample pass.
+> What should Project Knowledge reuse, integrate, or extend before inventing anything new?
+
+The initial pass is complete enough to support capability derivation, but research should remain open where later capabilities expose a more specific precedent.
 
 ### 4. Failure modes
 
 Record concrete ways project knowledge becomes difficult to use: duplication, drift, stale authority, lost rationale, weak provenance, context fragmentation, hierarchy mismatch, unbounded capture, excessive structure, or retrieval without understanding.
 
-### 5. Requirements derivation
+### 5. Evidence-to-capability derivation — next
 
-Derive functional and quality requirements from the corpus, user jobs, existing-approach analysis, and observed failure modes. Requirements should be traceable back to evidence wherever practical.
+Candidate capabilities should now be derived using an explicit trace:
 
-## Key validation question
+```text
+Corpus case(s)
+    ↓
+Failure mode(s)
+    ↓
+User job(s)
+    ↓
+Existing approach coverage
+    ↓
+Residual gap
+    ↓
+Candidate capability
+```
+
+Each candidate should be classified as:
+
+- **REUSE** — an existing mechanism already solves the need;
+- **INTEGRATE** — Project Knowledge needs to connect an existing mechanism into a coherent project-memory view;
+- **EXTEND** — mature semantics exist but require engineering-specific additions; or
+- **NEW** — the evidence supports behavior not adequately supplied by the surveyed mechanisms.
+
+This classification is intended to prevent unnecessary invention.
+
+### 6. Requirements derivation
+
+Only after candidate capabilities have traceable evidence should they be promoted into functional requirements, quality attributes, constraints, or explicit non-requirements.
+
+## Key validation questions
 
 > Can the emerging model represent the messy reality of engineering work without forcing information into unnatural categories or imposing more cognitive burden than it removes?
 
-A second, equally important question is now explicit:
-
 > Can a project remain simple when simple files, links, ordering, search, and Git are already enough?
+
+> After composing existing mechanisms honestly, what behavior is still missing strongly enough to justify Project Knowledge-specific software?
 
 ## Discovery outputs
 
@@ -93,7 +157,9 @@ Expected outputs include:
 - user jobs and use cases;
 - existing-approach analysis;
 - failure-mode catalog;
-- capability requirements;
+- evidence-to-capability trace matrix;
+- candidate capability model;
+- functional requirements;
 - quality attributes;
 - constraints;
 - unresolved questions; and
@@ -109,5 +175,6 @@ Discovery should not be considered complete merely because a plausible ontology 
 2. investigated existing approaches that may already solve portions of the problem;
 3. connected important user jobs to concrete failure modes and evidence;
 4. distinguished general engineering-knowledge needs from Monad-specific governance conventions;
-5. preserved negative evidence showing where richer structure is unnecessary; and
-6. demonstrated that proposed capabilities reduce rather than increase context-management burden.
+5. preserved negative evidence showing where richer structure is unnecessary;
+6. classified proposed behavior as reuse, integration, extension, or genuinely new capability; and
+7. demonstrated that proposed capabilities reduce rather than increase context-management burden.
