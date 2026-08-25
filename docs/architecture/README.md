@@ -6,9 +6,11 @@ The architecture is derived from the merged requirements and domain invariants. 
 
 ## Status
 
-**Architecture draft — implementation kernel not yet authorized.**
+**Initial architecture accepted — M0 implementation authorized.**
 
 The architecture must preserve the domain model in `docs/domain/`, especially the invariants in `docs/domain/invariants.md` and the architecture-entry scenarios in `docs/domain/open-questions.md`.
+
+Concrete M0 implementation decisions now live under [`../m0/`](../m0/) and in `ADR-0002`. Those choices may validate or falsify this architecture but do not retroactively redefine its semantic invariants.
 
 ## Architectural thesis
 
@@ -118,13 +120,15 @@ This architecture is not:
 
 ## Architecture exit criterion
 
-This phase is sufficient to authorize an M0 implementation kernel when:
+The initial architecture is considered sufficient to authorize M0 because:
 
-1. every domain invariant has an architectural preservation mechanism;
+1. every current domain invariant has an architectural preservation mechanism;
 2. the eight architecture-entry scenarios have explicit execution paths;
 3. canonical versus derived state is unambiguous;
-4. source authority and access boundaries survive federation;
-5. the minimal-project case requires near-zero ceremony;
+4. source authority and access boundaries survive federation conceptually;
+5. the minimal-project case permits near-zero ceremony;
 6. the rich-project case can add semantics without changing operating model;
-7. derived state is rebuildable from authoritative/native inputs plus portable semantic records; and
+7. derived state is designed to rebuild from authoritative/native inputs plus portable semantic records; and
 8. the M0 vertical slice is small enough to implement and falsify the architecture.
+
+M0 test failures that expose a semantic/architectural flaw should revise this architecture rather than be patched around as implementation accidents.
