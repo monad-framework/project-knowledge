@@ -1,0 +1,42 @@
+name: df003-plan
+
+on:
+  push:
+    branches:
+      - phase6/dogfood-003-ca1-traceability
+    paths:
+      - docs/dogfooding/DF-003-ca1-traceability.intent.json
+      - .github/workflows/df003-plan.yml
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: rustc --version && cargo --version && git --version
+      - name: Build reviewed capture plan
+        run: |
+          cargo run --locked -- --root . capture plan \
+            --intent docs/dogfooding/DF-003-ca1-traceability.intent.json \
+            --out /tmp/df003-plan.json
+          echo '--- plan summary ---'
+          python3 - <<'PY'
+          import json
+          p=json.load(open('/tmp/df003-plan.json'))
+          print('schema:', p['schema'])
+          print('operations:', len(p['operations']))
+          print('preconditions:', len(p['preconditions']))
+          print('warnings:', len(p.get('warnings', [])))
+          print('blockers:', len(p.get('blockers', [])))
+          for op in p['operations']:
+              r=op['record']
+              print(r['kind'], r['id'], op['path'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: df003-capture-plan
+          path: /tmp/df003-plan.json
