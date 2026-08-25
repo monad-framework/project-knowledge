@@ -69,6 +69,19 @@ This is intentionally narrower than treating a successful prototype as blanket p
 - the accepted Claim's M0 evidence is currently fresh; and
 - both native documents are recognized as Representations of the same Subject.
 
+## Execution result
+
+**PASS.** The normal pull-request CI runner passed formatting, strict Clippy, and the full locked test suite with the dogfood records present.
+
+The self-dogfood assertions therefore demonstrate on the repository's real state that:
+
+- `decision_status` resolves to `proposed` immediately before the Architecture PR #8 merge boundary;
+- `decision_status` resolves to `accepted` after that boundary;
+- the M0 closure blob remains current evidence for the accepted Claim; and
+- the ADR and selected-architecture documents resolve as two Representations of the same Subject.
+
+No schema, compiler, resolver, or source-adapter change was required to make the case pass.
+
 ## Initial findings
 
 ### The semantic model is sufficient for this thread
