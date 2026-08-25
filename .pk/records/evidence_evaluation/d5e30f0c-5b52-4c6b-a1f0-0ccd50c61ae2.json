@@ -1,0 +1,18 @@
+{
+  "schema": "pk/v1",
+  "kind": "evidence_evaluation",
+  "id": "d5e30f0c-5b52-4c6b-a1f0-0ccd50c61ae2",
+  "claim_id": "bcb240ef-0b9d-4e6b-be79-043c6d07b644",
+  "method": "M0 architecture falsification acceptance suite",
+  "result": "pass",
+  "recorded_at": "2026-08-25T22:14:42Z",
+  "inputs": [
+    {
+      "source_system": "git",
+      "object_type": "blob",
+      "locator": "docs/m0/closure.md",
+      "state": "2e58b1b97962267f247d8a39558e09a57f29df05"
+    }
+  ],
+  "notes": "M0 did not falsify the selected architecture within its tested scope; this supports continued acceptance, not universal correctness or production readiness."
+}

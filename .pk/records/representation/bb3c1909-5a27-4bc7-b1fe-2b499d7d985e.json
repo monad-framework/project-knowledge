@@ -1,0 +1,12 @@
+{
+  "schema": "pk/v1",
+  "kind": "representation",
+  "id": "bb3c1909-5a27-4bc7-b1fe-2b499d7d985e",
+  "subject_id": "4d679723-33fb-4fda-ad63-9e514a6f11c4",
+  "role": "decision_record",
+  "native": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/decisions/ADR-0001-federated-portable-core.md"
+  }
+}
