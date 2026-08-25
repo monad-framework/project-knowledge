@@ -1,12 +1,18 @@
 # M0 — Executable Project-Memory Kernel
 
-M0 is the first executable vertical slice of Project Knowledge.
+## Status
 
-It exists to falsify or validate the architecture selected in `ADR-0001`, not to implement the eventual product surface.
+**Complete — architecture vertical slice validated for the M0 scope.**
+
+See [`closure.md`](closure.md) for the closure evidence, defects found during post-merge hardening, and the limits of what M0 proves.
+
+M0 is the first executable vertical slice of Project Knowledge. It exists to falsify or validate the architecture selected in `ADR-0001`, not to implement the eventual product surface.
 
 ## M0 question
 
-> Can a small local executable preserve the S1/S2/S3 boundary, compile portable semantic records into disposable derived state, and satisfy the eight architecture-entry scenarios without imposing semantic ceremony on a native-only project?
+> Can a small local executable preserve the S1/S2/S3 boundary, compile portable semantic records into disposable derived state, and satisfy the architecture-entry scenarios without imposing semantic ceremony on a native-only project?
+
+The M0 result is **yes for the tested scope**. The implementation passed S-1 through S-9, schema validation, strict formatting, Clippy with warnings denied, and clean-run tests. That does not imply production readiness or universal architectural sufficiency.
 
 ## Selected concrete stack
 
@@ -18,6 +24,7 @@ It exists to falsify or validate the architecture selected in `ADR-0001`, not to
 - **Native VCS adapter:** invocation of the installed `git` executable
 - **CLI:** `clap`
 - **Time parsing:** RFC3339 timestamps parsed with Jiff
+- **Resolved dependency graph:** checked-in `Cargo.lock`, verified with `--locked`
 
 These are M0 implementation decisions, not irreversible product constraints.
 
@@ -25,6 +32,7 @@ These are M0 implementation decisions, not irreversible product constraints.
 
 ```text
 Cargo.toml
+Cargo.lock
 rust-toolchain.toml
 schemas/
   v1/
@@ -155,7 +163,7 @@ This is the executable form of proposition/input-relative freshness from the req
 8. first-class unknown resolution;
 9. clean-room S3 rebuild equivalence.
 
-M0 is complete only when CI passes these scenarios plus schema-validation tests.
+The detailed scenario definitions are in [`acceptance-plan.md`](acceptance-plan.md). Closure evidence is in [`closure.md`](closure.md).
 
 ## Deliberate exclusions
 
@@ -173,4 +181,8 @@ M0 does not implement:
 - optimized query schemas; or
 - production authorization enforcement.
 
-Those remain later work unless M0 proves the architecture itself insufficient.
+Those remain later work unless new evidence shows that the current architecture is insufficient.
+
+## Next step
+
+The next phase is dogfooding rather than immediate feature expansion: use M0 against Project Knowledge itself and representative Monad material, measure capture burden and recovery value, and let real usage determine what deserves to become M1 capability work.
