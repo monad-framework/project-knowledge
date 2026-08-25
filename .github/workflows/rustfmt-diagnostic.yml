@@ -1,4 +1,4 @@
-name: m0-diagnostic
+name: m0-lockfile
 
 on:
   push:
@@ -9,22 +9,13 @@ permissions:
   contents: read
 
 jobs:
-  diagnostic:
+  lockfile:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check formatting
-        run: cargo fmt --check
-      - name: Capture Clippy diagnostics
-        shell: bash
-        run: |
-          set +e
-          cargo clippy --all-targets --all-features -- -D warnings > clippy.log 2>&1
-          echo $? > clippy.exit
-          exit 0
+      - name: Generate lockfile
+        run: cargo generate-lockfile
       - uses: actions/upload-artifact@v4
         with:
-          name: clippy-diagnostic
-          path: |
-            clippy.log
-            clippy.exit
+          name: cargo-lock
+          path: Cargo.lock
