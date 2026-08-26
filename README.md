@@ -12,7 +12,7 @@ The first evidence-traceable requirements baseline, minimal semantic domain kern
 
 M0 demonstrates the selected architecture against its first executable falsification scenarios. The closure record is [`docs/m0/closure.md`](docs/m0/closure.md).
 
-Three self-dogfood experiments are now complete under [`docs/dogfooding/`](docs/dogfooding/):
+Three self-dogfood experiments are complete under [`docs/dogfooding/`](docs/dogfooding/):
 
 - DF-001 recovered historical/current ADR status and evidence;
 - DF-002 preserved an unresolved technology question, considered alternatives, the later selected answer, and implementation evidence; and
@@ -22,9 +22,11 @@ DF-001 and DF-002 independently reproduced the same manual structural-authoring 
 
 CA-1 implements a plan → review → apply boundary so `pk` can generate UUIDs, canonical record paths, envelopes, ordinary capture timestamps, and relevant Git source-state identity without silently deciding semantic identity, authority, evidence breadth, valid time, or epistemic meaning. Its closure record is [`docs/authoring/closure.md`](docs/authoring/closure.md).
 
-DF-003 then validated CA-1 in real use: a reviewed 15-operation Capture Plan safely produced the next 15 S2 records with zero hand-authored UUIDs, output paths, Git blob identities, portable-record envelopes, or capture timestamps. The repository now contains 39 self-dogfood S2 records across three recovery threads.
+DF-003 validated CA-1 in real use: a reviewed 15-operation Capture Plan safely produced 15 S2 records with zero hand-authored UUIDs, output paths, Git blob identities, portable-record envelopes, or capture timestamps. The repository now contains 39 self-dogfood S2 records across three recovery threads.
 
 DF-003 also exposed the strongest current Phase 6 gap: Project Knowledge can represent reasoning/provenance Relationships that the current CLI cannot yet recover directly. `pk resolve` answers scoped current-state questions, but there is no user-facing traversal/explanation surface for questions such as “what motivated this?”, “which decision governs it?”, or “what verifies this Claim?”
+
+A **Retrieval and Traversal Detailed Design** is now proposed under [`docs/retrieval/`](docs/retrieval/). It separates a neutral bounded semantic traversal engine from a human-oriented recovery projection and proposes **RT-1 — Semantic Recovery Traversal** as the next evidence-authorized implementation increment if the design is accepted.
 
 Discovery remains open under [`docs/discovery/`](docs/discovery/) where the evidence matrix still identifies under-evidenced concepts. The completed project foundation remains under [`docs/inception/`](docs/inception/).
 
@@ -74,7 +76,7 @@ Current truth remains a derived resolution over Claims, Assertions, scoped autho
 4. Model the domain. **Initial semantic kernel complete**
 5. Design the architecture. **Initial architecture complete**
 6. Build the smallest useful vertical prototype. **M0 complete**
-7. Use the project to document its own development and evaluate the model. **Current phase — three self-dogfood cases complete; retrieval/traversal is the strongest new evidence signal**
+7. Use the project to document its own development and evaluate the model. **Current phase — three self-dogfood cases complete; retrieval/traversal detailed design proposed**
 
 ## Current Phase 6 objective
 
@@ -95,7 +97,23 @@ pk resolve capability_status  ✓
 recover the reasoning chain   ✗ direct CLI surface
 ```
 
-The next design work should therefore investigate the smallest retrieval/traversal/explanation surface that satisfies real recovery jobs. It should not begin from an assumption that Project Knowledge needs a generic graph browser.
+The proposed retrieval design selects this architecture:
+
+```text
+S1 + S2
+  ↓
+bounded semantic traversal
+  ↓
+structured recovery explanation
+  ↓
+pk explain
+
+same traversal primitive
+  ↓
+pk trace
+```
+
+The design intentionally does not begin with a graph database, graph browser, LLM, semantic search, or automatic causal inference. Those remain separate evidence questions.
 
 A richer guided capture UX also remains a candidate because DF-003 Authoring Intent still contains safely reducible alias/kind/reference ceremony. Semantic auto-decision, fuzzy identity resolution, and AI inference remain unauthorized.
 
