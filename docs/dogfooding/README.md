@@ -43,8 +43,18 @@ DF-003 then used CA-1 against Project Knowledge itself. The reviewed plan genera
 
 The strongest new DF-003 signal is different: Project Knowledge can represent the motivating/provenance/verification chain, but the current CLI cannot recover that chain directly. `pk resolve` can answer scoped current-state questions, while relationship/provenance traversal still requires programmatic access or raw-record inspection.
 
-This does not automatically authorize a generic graph browser. It establishes a concrete recovery requirement to investigate:
+That signal has now been carried into [`../retrieval/`](../retrieval/) as a detailed design. The proposed design deliberately does **not** jump to a graph browser. It separates:
 
-> What is the smallest retrieval surface that lets a human recover the reasoning chain already represented in Project Knowledge without exposing raw storage mechanics?
+```text
+neutral bounded semantic traversal
+            ↓
+structured recovery projection
+            ↓
+         pk explain
+```
+
+with the same traversal primitive exposed through `pk trace` for explicit neighborhood/path work and future machine consumers.
+
+If the retrieval design is accepted, **RT-1 — Semantic Recovery Traversal** becomes the next evidence-authorized implementation increment. Its completion must be followed by DF-004 before promoting full-text/semantic search, a dedicated impact command, graph visualization, or generated narrative.
 
 A richer guided authoring interaction also remains a candidate because Authoring Intent still contains safely reducible alias/kind/reference ceremony. DF-003 alone does not authorize fuzzy identity resolution, semantic auto-decision, or an AI authoring agent.
