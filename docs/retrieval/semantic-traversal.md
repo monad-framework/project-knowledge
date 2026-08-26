@@ -45,24 +45,26 @@ The retrieval layer must not rename a relation in a way that changes its meaning
 
 These are query-time edges derived directly from existing record fields. They are not persisted as additional Relationship records.
 
-Initial binding kinds:
+Initial binding kinds and canonical orientation:
 
-| Binding | Source field |
-| --- | --- |
-| `representation_of` | `Representation.subject_id` |
-| `claim_about` | `Claim.subject_id` |
-| `asserts_claim` | `Assertion.claim_id` |
-| `asserted_by` | `Assertion.representation_id` |
-| `authority_for_subject` | `Authority.subject_id` |
-| `authority_representation` | `Authority.representation_id` |
-| `evidence_for_claim` | `EvidenceEvaluation.claim_id` |
-| `generated_by_activity` | `Activity.generated_representation_ids` |
-| `uses_context` | `Assertion.context_id`, `Authority.context_id`, `EvidenceEvaluation.context_id` |
-| `relationship_activity` | `Relationship.activity_id` |
+| Binding | Canonical edge | Source field |
+| --- | --- | --- |
+| `representation_of` | Representation → Subject | `Representation.subject_id` |
+| `claim_about` | Claim → Subject | `Claim.subject_id` |
+| `asserts_claim` | Assertion → Claim | `Assertion.claim_id` |
+| `asserted_by` | Assertion → Representation | `Assertion.representation_id` |
+| `authority_for_subject` | Authority → Subject | `Authority.subject_id` |
+| `authority_representation` | Authority → Representation | `Authority.representation_id` |
+| `evidence_for_claim` | Evidence Evaluation → Claim | `EvidenceEvaluation.claim_id` |
+| `generated_by_activity` | Representation → Activity | membership in `Activity.generated_representation_ids` |
+| `uses_context` | Assertion / Authority / Evidence Evaluation → Context | corresponding `context_id` |
+| `relationship_activity` | Relationship → Activity | `Relationship.activity_id` |
 
 These labels belong to the retrieval contract, not to the open-ended canonical Relationship vocabulary.
 
 They express structural bindings already guaranteed by the record model; they do not add new project assertions.
+
+The canonical orientation is stable even when a query discovers the edge by traversing `incoming` from the target. The returned edge always preserves this canonical orientation.
 
 ### 3. Native-source links
 
@@ -74,6 +76,8 @@ Where a record contains a `NativeReference`, traversal may expose a source link 
 - immutable/reconstructable state when present;
 - current source observation status when available.
 
+Native-source links are canonically oriented from the semantic record to the native source endpoint.
+
 Native-source links are terminal in RT-1. The first increment does not recursively crawl arbitrary external systems from traversal.
 
 ## Direction
@@ -84,7 +88,7 @@ Traversal supports:
 - `incoming`; and
 - `both`.
 
-Direction is interpreted against the stored/derived edge orientation. The result always preserves original orientation even when discovered through an incoming query.
+Direction is interpreted against the stored/derived canonical edge orientation. The result always preserves original orientation even when discovered through an incoming query.
 
 ## Bounds
 
