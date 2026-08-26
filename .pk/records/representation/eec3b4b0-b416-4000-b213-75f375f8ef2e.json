@@ -1,0 +1,13 @@
+{
+  "kind": "representation",
+  "schema": "pk/v1",
+  "id": "eec3b4b0-b416-4000-b213-75f375f8ef2e",
+  "subject_id": "f8adff3e-11ad-43a9-9275-7d30fc9d1973",
+  "role": "architecture_decision",
+  "native": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/decisions/ADR-0003-plan-review-apply-authoring.md",
+    "state": "6c6d4a1b67cd545c2ef6401bc1a8d4b11ffe6438"
+  }
+}

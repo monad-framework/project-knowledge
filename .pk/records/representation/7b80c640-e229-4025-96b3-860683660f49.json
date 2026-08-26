@@ -1,0 +1,13 @@
+{
+  "kind": "representation",
+  "schema": "pk/v1",
+  "id": "7b80c640-e229-4025-96b3-860683660f49",
+  "subject_id": "f8adff3e-11ad-43a9-9275-7d30fc9d1973",
+  "role": "motivating_evidence",
+  "native": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/dogfooding/DF-002-serialization-choice.md",
+    "state": "6f119b5cc9bcc92406155f88b5cf232444373fc6"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "kind": "representation",
+  "schema": "pk/v1",
+  "id": "c26cdd90-8f96-4cbf-ade4-6388b1e5a601",
+  "subject_id": "f8adff3e-11ad-43a9-9275-7d30fc9d1973",
+  "role": "capability_design",
+  "native": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/authoring/README.md",
+    "state": "f3179868154ccb9c243ff50f5db09b5ab993be60"
+  }
+}

@@ -12,16 +12,19 @@ The first evidence-traceable requirements baseline, minimal semantic domain kern
 
 M0 demonstrates the selected architecture against its first executable falsification scenarios. The closure record is [`docs/m0/closure.md`](docs/m0/closure.md).
 
-Two self-dogfood experiments are complete under [`docs/dogfooding/`](docs/dogfooding/):
+Three self-dogfood experiments are now complete under [`docs/dogfooding/`](docs/dogfooding/):
 
 - DF-001 recovered historical/current ADR status and evidence;
-- DF-002 preserved an unresolved technology question, considered alternatives, the later selected answer, and implementation evidence.
+- DF-002 preserved an unresolved technology question, considered alternatives, the later selected answer, and implementation evidence; and
+- DF-003 used CA-1 itself to preserve the evidence → promoted capability → design decision → implementation → verification chain for Guided Capture and Scaffolding.
 
-Both passed using the existing M0 semantic kernel. Across the two cases, the repository accumulated 24 portable S2 records and independently reproduced the same manual structural-authoring burden.
+DF-001 and DF-002 independently reproduced the same manual structural-authoring burden across 24 portable S2 records. That repeated evidence authorized **CA-1 — Guided Capture and Scaffolding**.
 
-That repeated evidence authorized **CA-1 — Guided Capture and Scaffolding**. CA-1 implements a plan → review → apply boundary so `pk` can generate UUIDs, canonical record paths, envelopes, ordinary capture timestamps, and relevant Git source-state identity without silently deciding semantic identity, authority, evidence breadth, valid time, or epistemic meaning. Its closure record is [`docs/authoring/closure.md`](docs/authoring/closure.md).
+CA-1 implements a plan → review → apply boundary so `pk` can generate UUIDs, canonical record paths, envelopes, ordinary capture timestamps, and relevant Git source-state identity without silently deciding semantic identity, authority, evidence breadth, valid time, or epistemic meaning. Its closure record is [`docs/authoring/closure.md`](docs/authoring/closure.md).
 
-The next Phase 6 step is **DF-003**, which must use CA-1 rather than hand-authoring another S2 bundle.
+DF-003 then validated CA-1 in real use: a reviewed 15-operation Capture Plan safely produced the next 15 S2 records with zero hand-authored UUIDs, output paths, Git blob identities, portable-record envelopes, or capture timestamps. The repository now contains 39 self-dogfood S2 records across three recovery threads.
+
+DF-003 also exposed the strongest current Phase 6 gap: Project Knowledge can represent reasoning/provenance Relationships that the current CLI cannot yet recover directly. `pk resolve` answers scoped current-state questions, but there is no user-facing traversal/explanation surface for questions such as “what motivated this?”, “which decision governs it?”, or “what verifies this Claim?”
 
 Discovery remains open under [`docs/discovery/`](docs/discovery/) where the evidence matrix still identifies under-evidenced concepts. The completed project foundation remains under [`docs/inception/`](docs/inception/).
 
@@ -71,24 +74,30 @@ Current truth remains a derived resolution over Claims, Assertions, scoped autho
 4. Model the domain. **Initial semantic kernel complete**
 5. Design the architecture. **Initial architecture complete**
 6. Build the smallest useful vertical prototype. **M0 complete**
-7. Use the project to document its own development and evaluate the model. **Current phase — dogfooding; CA-1 complete; DF-003 next**
+7. Use the project to document its own development and evaluate the model. **Current phase — three self-dogfood cases complete; retrieval/traversal is the strongest new evidence signal**
 
 ## Current Phase 6 objective
 
-The immediate question is no longer whether deterministic authoring scaffolding can be implemented. CA-1 demonstrates that it can.
+CA-1 has now been validated on a real self-dogfood capture rather than only against isolated acceptance fixtures.
 
-The next question is whether that layer materially improves real engineering use.
+The immediate question has shifted from **how to author the semantics safely** to **how to recover the represented reasoning without exposing raw storage mechanics**.
 
-DF-003 should therefore:
+DF-003 establishes a concrete failed recovery path:
 
-1. begin from a real recovery problem rather than a synthetic fixture;
-2. express the semantic intent through CA-1;
-3. generate and review the Capture Plan;
-4. apply the resulting S2 records;
-5. verify the intended recovery result through the compiler/resolver; and
-6. measure what manual semantic and interaction burden remains.
+```text
+stored successfully
+DF-001/DF-002 ──motivates──> authoring design
+ADR-0003 ──governs_design_of──> authoring design
+CA-1 closure ──verifies──> implementation Claim
 
-Product changes after CA-1 should again require evidence from dogfooding rather than feature-list speculation.
+user-facing recovery today
+pk resolve capability_status  ✓
+recover the reasoning chain   ✗ direct CLI surface
+```
+
+The next design work should therefore investigate the smallest retrieval/traversal/explanation surface that satisfies real recovery jobs. It should not begin from an assumption that Project Knowledge needs a generic graph browser.
+
+A richer guided capture UX also remains a candidate because DF-003 Authoring Intent still contains safely reducible alias/kind/reference ceremony. Semantic auto-decision, fuzzy identity resolution, and AI inference remain unauthorized.
 
 ## Relationship to Monad
 

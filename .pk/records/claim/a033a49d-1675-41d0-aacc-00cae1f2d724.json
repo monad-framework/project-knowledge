@@ -1,0 +1,8 @@
+{
+  "kind": "claim",
+  "schema": "pk/v1",
+  "id": "a033a49d-1675-41d0-aacc-00cae1f2d724",
+  "subject_id": "f8adff3e-11ad-43a9-9275-7d30fc9d1973",
+  "concern": "capability_status",
+  "value": "implemented_and_validated"
+}

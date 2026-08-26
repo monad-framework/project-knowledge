@@ -1,0 +1,14 @@
+{
+  "kind": "assertion",
+  "schema": "pk/v1",
+  "id": "a64a3f94-b296-4bfa-80b2-7f59a60e92ad",
+  "claim_id": "a033a49d-1675-41d0-aacc-00cae1f2d724",
+  "representation_id": "d433296c-440a-4e03-87c0-fa3b2170b164",
+  "recorded_at": "2026-08-25T23:52:39.39926508Z",
+  "source_state": {
+    "source_system": "git",
+    "object_type": "blob",
+    "locator": "docs/authoring/closure.md",
+    "state": "36abf77a44c793bd4d3801d3212391cc610816a5"
+  }
+}
